@@ -1,0 +1,6 @@
+set hintkeys=asdfjkl
+colorscheme simple_dark
+set showtabline=never
+set! browser.tabs.closeWindowWithLastTab=false
+map <C-d> -ex -silent :emenu Tools.Downloads
+set ds=duckduckgo

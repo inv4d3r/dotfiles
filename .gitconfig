@@ -1,0 +1,23 @@
+[user]
+	email = mariush.zalewski@gmail.com
+	name = Mariusz Zalewski
+[core]
+	editor = vim
+	pager = less -F -X
+	autocrlf = true
+
+[alias]
+	st = status
+	fo = fetch origin
+	co = checkout
+	cam = commit -am
+	fix = commit --amend --no-edit
+	fixall = commit -a --amend --no-edit
+	mom = merge origin/master
+	rom = rebase origin/master
+	rbc = rebase --continue
+	rba = rebase --abort
+	au = update-index --assume-unchanged
+	nau = update-index --no-assume-unchanged
+	ls = log --pretty=format:"%C(blue)%h\\ %C(white)%ai%C(cyan)%d\\ %C(reset)%s%C(yellow)\\ [%cn]" --decorate
+	lign = !git ls-files -v | grep '^[[:lower]]'

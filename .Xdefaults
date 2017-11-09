@@ -1,30 +1,36 @@
-URxvt*color0:   #393939
-URxvt*color1:   #ca674a
-URxvt*color2:   #96a967
-URxvt*color3:   #d3a94a
-URxvt*color4:   #5778c1
-URxvt*color5:   #9c35ac
-URxvt*color6:   #6eb5f3
-URxvt*color7:   #a9a9a9
+! URxvt gruvbox dark soft
+URxvt.background: [70]#32302f
+URxvt.foreground : #928374
 
-URxvt*color8:   #535551
-URxvt*color9:   #ea2828
-URxvt*color10:   #87dd32
-URxvt*color11:   #f7e44d
-URxvt*color12:   #6f9bca
-URxvt*color13:   #a97ca4
-URxvt*color14:   #32dddd
-URxvt*color15:   #e9e9e7 
+! ! Black + DarkGrey
+URxvt*color0: #282828
+URxvt*color8: #928374
+! DarkRed + Red
+URxvt*color1: #cc241d
+URxvt*color9: #fb4934
+! DarkGreen + Green
+URxvt*color2: #98971a
+URxvt*color10: #b8bb26
+! DarkYellow + Yellow
+URxvt*color3: #d79921
+URxvt*color11: #fabd2f
+! DarkBlue + Blue
+URxvt*color4: #458588
+URxvt*color12: #83a598
+! DarkMagenta + Magenta
+URxvt*color5: #b16286
+URxvt*color13: #d3869b
+! DarkCyan + Cyan
+URxvt*color6: #689d6a
+URxvt*color14: #8ec07c
+! LightGrey + White
+URxvt*color7: #a89984
+URxvt*color15: #ebdbb2
 
-URxvt.geometry: 130x35
+URxvt*scrollBar : false
 
-URxvt.scrollBar : false
-URxvt.internalBorder: 10
-
-URxvt.depth: 32
-URxvt.background: rgba:0000/0000/0200/b000
-URxvt.foreground : gray
-URxvt.font: xft:inconsolata:size=10:style=Regular:antialias=true
+URxvt*depth: 32
+URxvt*font: xft:inconsolata:size=10:style=Regular:antialias=true
 !URxvt.font: xft:ProggyTinyTT:size=12
 !URxvt.font: xft:DejaVu Sans Mono for Powerline:size=10:style=Book:antialias=true
 !URxvt.font: xft:dina:size=8:style=Regular
@@ -33,8 +39,7 @@ URxvt.font: xft:inconsolata:size=10:style=Regular:antialias=true
 URxvt.perl-lib: /usr/lib/urxvt/perl
 URxvt.perl-ext-common: default,matcher
 URxvt.matcher.button: 1
-!URxvt.url-launcher: /usr/bin/firefox
-URxvt.url-launcher: /usr/bin/luakit
+URxvt.url-launcher: /usr/bin/qutebrowser
 URxvt.colorUrl : #4682b4
 ! Yankable links
 !URxvt.perl-ext: default, url-select

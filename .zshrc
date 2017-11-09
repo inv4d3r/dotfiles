@@ -10,6 +10,7 @@ ZSH_THEME="steeef"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vim=nvim
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -51,7 +52,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/scripts:$HOME/bin:/usr/local/bin:$HOME/.gem/ruby/2.1.0/bin:$HOME/RubyMine-7.0/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/scripts:$HOME/bin:/usr/local/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/RubyMine-7.0/bin:$PATH
+export NVIMRC=$HOME/.config/nvim/init.vim
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
@@ -68,3 +70,5 @@ export PATH=$HOME/scripts:$HOME/bin:/usr/local/bin:$HOME/.gem/ruby/2.1.0/bin:$HO
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 export LIBVA_DRIVER_NAME=vdpau
 export VDPAU_DRIVER=nvidia
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

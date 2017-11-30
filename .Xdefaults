@@ -1,36 +1,48 @@
 ! URxvt gruvbox dark soft
-URxvt.background: [70]#32302f
-URxvt.foreground : #928374
+!URxvt*background: [70]#32302f
+!URxvt*foreground : #928374
+!URxvt*color0: #282828
+!URxvt*color8: #928374
+!URxvt*color1: #cc241d
+!URxvt*color9: #fb4934
+!URxvt*color2: #98971a
+!URxvt*color10: #b8bb26
+!URxvt*color3: #d79921
+!URxvt*color11: #fabd2f
+!URxvt*color4: #458588
+!URxvt*color12: #83a598
+!URxvt*color5: #b16286
+!URxvt*color13: #d3869b
+!URxvt*color6: #689d6a
+!URxvt*color14: #8ec07c
+!URxvt*color7: #a89984
+!URxvt*color15: #ebdbb2
 
-! ! Black + DarkGrey
-URxvt*color0: #282828
-URxvt*color8: #928374
-! DarkRed + Red
-URxvt*color1: #cc241d
-URxvt*color9: #fb4934
-! DarkGreen + Green
-URxvt*color2: #98971a
-URxvt*color10: #b8bb26
-! DarkYellow + Yellow
-URxvt*color3: #d79921
-URxvt*color11: #fabd2f
-! DarkBlue + Blue
-URxvt*color4: #458588
-URxvt*color12: #83a598
-! DarkMagenta + Magenta
-URxvt*color5: #b16286
-URxvt*color13: #d3869b
-! DarkCyan + Cyan
-URxvt*color6: #689d6a
-URxvt*color14: #8ec07c
-! LightGrey + White
-URxvt*color7: #a89984
-URxvt*color15: #ebdbb2
+! URxvt dracula
+URxvt.foreground: #F8F8F2
+URxvt.background: [90]#282A36
+URxvt.color0:     #000000
+URxvt.color8:     #4D4D4D
+URxvt.color1:     #FF5555
+URxvt.color9:     #FF6E67
+URxvt.color2:     #50FA7B
+URxvt.color10:    #5AF78E
+URxvt.color3:     #F1FA8C
+URxvt.color11:    #F4F99D
+URxvt.color4:     #BD93F9
+URxvt.color12:    #CAA9FA
+URxvt.color5:     #FF79C6
+URxvt.color13:    #FF92D0
+URxvt.color6:     #8BE9FD
+URxvt.color14:    #9AEDFE
+URxvt.color7:     #BFBFBF
+URxvt.color15:    #E6E6E6
 
 URxvt*scrollBar : false
 
 URxvt*depth: 32
-URxvt*font: xft:inconsolata:size=10:style=Regular:antialias=true
+!URxvt*font: xft:inconsolata:size=10:style=Regular:antialias=true
+URxvt*font: xft:inconsolata for powerline:size=10:style=Regular:antialias=true
 !URxvt.font: xft:ProggyTinyTT:size=12
 !URxvt.font: xft:DejaVu Sans Mono for Powerline:size=10:style=Book:antialias=true
 !URxvt.font: xft:dina:size=8:style=Regular

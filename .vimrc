@@ -1,102 +1,209 @@
-" let the pathogen work
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-
-:command! -complete=file -nargs=1 Rpdf :r !pdftotext -nopgbrk <q-args> -
-let &printexpr="(v:cmdarg=='' ? ".
-    \"system('lpr' . (&printdevice == '' ? '' : ' -P' . &printdevice)".
-    \". ' ' . v:fname_in) . delete(v:fname_in) + v:shell_error".
-    \" : system('mv '.v:fname_in.' '.v:cmdarg) + v:shell_error)"
+" ---- Defaults ---- "
 
 syntax on
+filetype on
 filetype plugin on
-filetype plugin indent on
+filetype indent on
 
-set ofu=syntaxcomplete#Complete
-
-set relativenumber
+" line numbers
 set number
+set relativenumber
 
 " do not wrap overflowing characters, it's annoying
 set nowrap
-"set linebreak
 
-" vim won't force to write changed buffer 
+" vim won't force to write changed buffer
 set hidden
 
 " show current normal command in status line
 set showcmd
 
-" identation configuration
-set shiftwidth=2
-set tabstop=2
-set expandtab
-
-"colorscheme jellybeans
+" adjust colors for dark background
 set background=dark
-colorscheme gruvbox
 
 " highlight search matches
 set hlsearch
-"hi Search ctermfg=None ctermbg=black
-
-" current line highlight
-hi CursorLine ctermbg=black ctermfg=None
-set cursorline
 
 " mksession options
 set sessionoptions=buffers
 
-set grepprg=grep\ -nH\ $*
-set laststatus=2
+" show whitespace
+set listchars=tab:  
+set list
 
-""" Mappings "
-map gf :e <cfile><cr>
-map <F2> :NERDTreeToggle<CR>
-map <F3> :NERDTree<CR>
-map <F4> :GundoToggle<CR>
-map <F5> :Tagbar<CR>
-map <F6> :TlistOpen<CR>
+" horizontal line
+set cursorline
 
-map <leader>t :call Toggle_task_status()<CR>
+" comply with Linux kernel coding style "
+set colorcolumn=101
 
-" silent make - no Enter prompt 
-map <leader>m :silent make\|redraw!\|cw<CR>
+" ---- Highlighting ---- "
 
-" easy subverting
-map <leader>s :S/
+" current line highlight
+highlight CursorLine ctermbg=black ctermfg=None
 
-" tabs navigation (breaks unimpaired mappings for tag navigation)
-nmap ]t :tabnext<CR>
-nmap [t :tabprev<CR>
+" max column highlight
+highlight ColorColumn ctermbg=167
 
-nmap <C-l> :silent nohl\|redraw<CR>
+" signature colorize "
+highlight SignatureMarkText ctermfg=205
+highlight Whitespace ctermfg=167
+highlight NonText ctermfg=239
 
-" search in MRU, buffers and FS
-let g:ctrlp_cmd = 'CtrlPMixed'
+" trailing whitespace
+highlight ExtraWhitespace ctermbg=red
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
-" Latex configuration
-let g:tex_flavor = "latex"
 
-""" Airline configuration "
-let g:airline_theme             = 'badwolf'
+" ---- Mappings ---- "
+
+" go to current file's path
+nnoremap gc :cd %:p:h<CR>:pwd<CR>
+
+" terminal - go to normal mode
+tnoremap <Esc> <C-\><C-n>
+
+" tab navigation
+nnoremap <silent> [d :tabprevious<CR>
+nnoremap <silent> ]d :tabnext<CR>
+nnoremap <silent> [D :tabfirst<CR>
+nnoremap <silent> ]D :tablast<CR>
+
+" ---- Plugins ---- "
+
+packadd minpac
+call minpac#init()
+
+call minpac#add('airblade/vim-gitgutter')
+call minpac#add('ap/vim-css-color')
+call minpac#add('brookhong/cscope.vim')
+call minpac#add('derekwyatt/vim-fswitch')
+call minpac#add('dracula/vim')
+call minpac#add('godlygeek/tabular')
+call minpac#add('junegunn/fzf', { 'do' : './install --all' })
+call minpac#add('junegunn/fzf.vim')
+call minpac#add('k-takata/minpac', { 'type' : 'opt' })
+call minpac#add('kshenoy/vim-signature')
+call minpac#add('ludovicchabant/vim-gutentags')
+call minpac#add('majutsushi/tagbar')
+call minpac#add('milkypostman/vim-togglelist')
+call minpac#add('morhetz/gruvbox')
+call minpac#add('roxma/nvim-yarp')
+call minpac#add('roxma/vim-hug-neovim-rpc')
+call minpac#add('sjl/badwolf')
+call minpac#add('scrooloose/nerdcommenter')
+call minpac#add('scrooloose/nerdtree')
+call minpac#add('Shougo/deoplete.nvim')
+call minpac#add('Shougo/neoinclude.vim')
+call minpac#add('sirver/UltiSnips')
+call minpac#add('sjl/gundo.vim')
+call minpac#add('tommcdo/vim-exchange')
+call minpac#add('tpope/tpope-vim-abolish')
+call minpac#add('tpope/vim-endwise')
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('tpope/vim-repeat')
+call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-unimpaired')
+call minpac#add('tpope/vim-sleuth')
+call minpac#add('vim-airline/vim-airline')
+call minpac#add('vim-airline/vim-airline-themes')
+call minpac#add('w0rp/ale')
+call minpac#add('zchee/deoplete-clang')
+
+" colorscheme
+if $THEME == ""
+   let scheme_name = 'default'
+   let airline_scheme_name = 'base16_grayscale'
+else
+   let scheme_name = $THEME
+   let airline_scheme_name = $THEME
+endif
+execute 'colorscheme' scheme_name
+
+" ---- extra windows ---- "
+nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <F3> :GundoToggle<CR>
+nnoremap <F4> :Tagbar<CR>
+
+" ---- airline configuration ---- "
+let g:airline_theme             = airline_scheme_name
 let g:airline#extensions#branch#enabled = 2
 let g:airline#extensions#syntastic#enabled = 1
-
-" vim-powerline symbols
 let g:airline_left_sep          = ''
 let g:airline_left_alt_sep      = ''
 let g:airline_right_sep         = ''
 let g:airline_right_alt_sep     = ''
-"let g:airline_symbols.branch    = ''
-"let g:airline_symbols.readonly  = ''
-"let g:airline_symbols.linenr    = ''
+let g:airline_section_c = '%t'
 
+" ---- cscove configuration ---- "
+let g:cscope_silent=1
 
-""" YCM configuration """
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
+" legend: s - symbol, g - definition,
+"         d - functions called by this function,
+"         c - functions calling this function,
+"         t - text string, e - egrep pattern,
+"         f - file, i - files #including this file
+nnoremap <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+nnoremap <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+nnoremap <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+nnoremap <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+nnoremap <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+nnoremap <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+nnoremap <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+nnoremap <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
+
+" find any object manually typed
+command! -nargs=+ CscoveFind call CscopeFind(<f-args>)
+nnoremap <leader>fm :CscoveFind 
+
+" ---- deoplete config ---- "
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#clang#libclang_path="/usr/lib/libclang.so"
+let g:deoplete#sources#clang#clang_header="/usr/lib/clang/"
+
+" close preview window when leaving insert mode
+autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
+
+" ---- switch to header/source ---- "
+map <leader>w :FSHere<CR>
+
+" ---- fzf config ---- "
+let g:fzf_command_prefix = "Fzf"
+nnoremap <leader>za :FzfAg<CR>
+nnoremap <leader>zb :FzfBuffers<CR>
+nnoremap <leader>zc :FzfCommits<CR>
+nnoremap <leader>zd :FzfBCommits<CR>
+nnoremap <leader>ze :FzfCommands<CR>
+nnoremap <leader>zf :FzfFiles<CR>
+nnoremap <leader>zg :FzfGFiles<CR>
+nnoremap <leader>zh :FzfGFiles?<CR>
+nnoremap <leader>zm :FzfMarks<CR>
+nnoremap <leader>zs :FzfSnippets<CR>
+nnoremap <leader>zt :FzfTags<CR>
+nnoremap <leader>zu :FzfBTags<CR>
+
+" ---- latex configuration ---- "
+let g:tex_flavor = "latex"
+
+" ---- NERDCommenter configuration ---- "
+let g:NERDCompactSexyComs = 1
+let g:NERDTrimTrailingWhitespace = 1
+
+" ---- NERDTree configuration ---- "
+let g:NERDTreeShowLineNumbers=1
+autocmd BufEnter NERD_* setlocal rnu
+
+" ---- Substitute configuration ---- "
+map <leader>s :S/
+
+" ---- UltiSnips configuration ---- "
+let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsEnableSnipMate=0
 
 
 """ UltiSnips configuration """

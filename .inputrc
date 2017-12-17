@@ -1,0 +1,9 @@
+# Use Page up and Page down to search through history
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+"\C-k": history-search-backward
+"\C-j": history-search-forward
+"\C-f": unix-filename-rubout
+"\C-h": unix-filename-rubout

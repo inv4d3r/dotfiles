@@ -25,8 +25,9 @@ case "$THEME" in
  \[\033[34m\]\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ ";;
     gruvbox) PS1="\[\033[35m\]\u \[\033[37m\]at \[\033[36m\]\h\
  \[\033[33m\]\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ ";;
+    nord) PS1="\[\033[35m\]\u \[\033[37m\]at \[\033[36m\]\h\
+ \[\033[34m\]\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ ";;
     -*) usage "bad argument $THEME";;
-    *) break;;
 esac
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

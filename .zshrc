@@ -5,12 +5,12 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="steeef"
+ZSH_THEME="agnoster"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim=nvim
+#alias vim=nvim
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -52,8 +52,10 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+export THEME=nord
 export PATH=$HOME/.local/bin:$HOME/scripts:$HOME/bin:/usr/local/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/RubyMine-7.0/bin:$PATH
 export NVIMRC=$HOME/.config/nvim/init.vim
+export VIMRC=$HOME/.vimrc
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
@@ -67,8 +69,12 @@ export NVIMRC=$HOME/.config/nvim/init.vim
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-export LIBVA_DRIVER_NAME=vdpau
-export VDPAU_DRIVER=nvidia
+#export SSH_KEY_PATH="~/.ssh/dsa_id"
+#export LIBVA_DRIVER_NAME=vdpau
+#export VDPAU_DRIVER=nvidia
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
+  exec startx
+fi

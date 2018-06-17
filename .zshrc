@@ -46,13 +46,13 @@ ZSH_THEME="agnoster"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git rails ruby)
+plugins=(git rails ruby zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export THEME=nord
+export THEME=default
 export PATH=$HOME/.local/bin:$HOME/scripts:$HOME/bin:/usr/local/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/RubyMine-7.0/bin:$PATH
 export NVIMRC=$HOME/.config/nvim/init.vim
 export VIMRC=$HOME/.vimrc

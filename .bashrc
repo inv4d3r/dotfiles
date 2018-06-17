@@ -14,11 +14,13 @@ alias ls='ls --color=auto'
 # alias vim=nvim
 
 # exports
-export THEME=badwolf
+export THEME=default
 export VIMRC=~/.vimrc
 export NVIMRC=~/.config/nvim/init.vim
 
 case "$THEME" in
+    default) PS1="\[\033[35m\]\u \[\033[39m\]at \[\033[36m\]\h\
+ \[\033[34m\]\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ ";;
     badwolf) PS1="\[\033[35m\]\u \[\033[37m\]at \[\033[33m\]\h\
  \[\033[34m\]\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ ";;
     dracula) PS1="\[\033[35m\]\u \[\033[37m\]at \[\033[36m\]\h\

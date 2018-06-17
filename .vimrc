@@ -21,6 +21,9 @@ set showcmd
 " adjust colors for dark background
 set background=dark
 
+" true color
+set termguicolors
+
 " highlight search matches
 set hlsearch
 
@@ -31,28 +34,30 @@ set sessionoptions=buffers
 set listchars=tab:  
 set list
 
+set clipboard=unnamedplus
+
 " horizontal line
-set cursorline
+"set cursorline
 
 " comply with Linux kernel coding style "
-set colorcolumn=101
+set colorcolumn=81
 
 " ---- Highlighting ---- "
 
 " current line highlight
-highlight CursorLine ctermbg=black ctermfg=None
+highlight CursorLine ctermbg=black ctermfg=None guibg=black
 
 " max column highlight
-highlight ColorColumn ctermbg=167
+highlight ColorColumn ctermbg=167 guibg=red
 
 " signature colorize "
-highlight SignatureMarkText ctermfg=205
-highlight Whitespace ctermfg=167
-highlight NonText ctermfg=239
+highlight SignatureMarkText ctermfg=205 guifg=red
+highlight Whitespace ctermfg=167 guifg=red
+highlight NonText ctermfg=239 guifg=gray
 
 " trailing whitespace
-highlight ExtraWhitespace ctermbg=red
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
@@ -62,6 +67,8 @@ autocmd BufWinLeave * call clearmatches()
 " ---- Mappings ---- "
 
 noremap <Esc> :nohl<CR>
+
+nnoremap <space> <C-^>
 
 " go to current file's path
 nnoremap gc :cd %:p:h<CR>:pwd<CR>
@@ -74,6 +81,14 @@ nnoremap <silent> [d :tabprevious<CR>
 nnoremap <silent> ]d :tabnext<CR>
 nnoremap <silent> [D :tabfirst<CR>
 nnoremap <silent> ]D :tablast<CR>
+
+" buffer navigation
+nnoremap <leader>bd :b <C-D>
+nnoremap <leader>bl :ls<CR>:b 
+nnoremap <leader>bs :sb <C-D>
+nnoremap <leader>bt :ls<CR>:sb 
+nnoremap <leader>bv :vert sb <C-D>
+nnoremap <leader>bx :ls<CR>:vert sb 
 
 " ---- Plugins ---- "
 
@@ -112,15 +127,18 @@ call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-sleuth')
+call minpac#add('tyrannicaltoucan/vim-deep-space')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
 call minpac#add('w0rp/ale')
 call minpac#add('zchee/deoplete-clang')
 
 " colorscheme
-if $THEME == ""
-   let scheme_name = 'default'
-   let airline_scheme_name = 'base16_grayscale'
+let g:nord_comment_brightness = 10
+
+if $THEME == "" || $THEME == "default"
+   let scheme_name = 'deep-space'
+   let airline_scheme_name = 'deep_space'
 else
    let scheme_name = $THEME
    let airline_scheme_name = $THEME
@@ -142,7 +160,7 @@ let g:airline_right_sep         = ''
 let g:airline_right_alt_sep     = ''
 let g:airline_section_c = '%f'
 
-" ---- cscove configuration ---- "
+" ---- cscope mappings ---- "
 
 " legend: s - symbol, g - definition,
 "         d - functions called by this function,
@@ -184,6 +202,10 @@ nnoremap <leader>zs :FzfSnippets<CR>
 nnoremap <leader>zt :FzfTags<CR>
 nnoremap <leader>zu :FzfBTags<CR>
 
+" fzf ag shortcuts
+nnoremap <leader>ag :FzfAg <C-R><C-W><CR>
+nnoremap <leader>af :FzfAg struct <C-R><C-W> {<CR>
+
 " ---- latex configuration ---- "
 let g:tex_flavor = "latex"
 
@@ -202,10 +224,3 @@ map <leader>s :S/
 let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsEnableSnipMate=0
-
-
-""" UltiSnips configuration """
-let g:UltiSnipsExpandTrigger="<C-j>"
-
-""" Signature colorize """
-highlight SignatureMarkText ctermfg=205

@@ -13,4 +13,8 @@ pulseaudio -D
 pasystray &
 udiskie --tray &
 setxkbmap -option caps:escape &
+
+cat ~/.config/termite/base > ~/.config/termite/config
+cat ~/.config/termite/$THEME >> ~/.config/termite/config
+
 exec awesome

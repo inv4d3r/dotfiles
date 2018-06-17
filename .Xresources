@@ -2,10 +2,10 @@
 #include THEME_XRESOURCES
 #endif
 
-URxvt*scrollBar : false
+URxvt.depth: 32
+URxvt.font: xft:hack:size=9:style=Regular:antialias=true
 
-URxvt*depth: 32
-URxvt*font: xft:hack:size=8:style=Regular:antialias=true
+URxvt.scrollBar : false
 
 ! Clickable links
 URxvt.perl-lib: /usr/lib/urxvt/perl

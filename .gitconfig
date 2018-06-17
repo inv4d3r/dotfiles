@@ -7,8 +7,11 @@
 
 [alias]
 	st = status
+	stu = status -uno
 	fo = fetch origin
 	co = checkout
+	c = commit
+	cm = commit -m
 	cam = commit -am
 	fix = commit --amend --no-edit
 	fixall = commit -a --amend --no-edit
@@ -16,7 +19,29 @@
 	rom = rebase origin/master
 	rbc = rebase --continue
 	rba = rebase --abort
+	rbs = rebase --skip
+	fp = format-patch
+	ama = am --abort
+	amc = am --continue
+	ams = am --skip
+	ch = cherry-pick
+	chq = cherry-pick --quit
+	cha = cherry-pick --abort
+	chc = cherry-pick --continue
 	au = update-index --assume-unchanged
 	nau = update-index --no-assume-unchanged
 	ls = log --pretty=format:"%C(blue)%h\\ %C(white)%ai%C(cyan)%d\\ %C(reset)%s%C(yellow)\\ [%cn]" --decorate
 	lign = !git ls-files -v | grep '^[[:lower]]'
+	dc = diff --cached
+
+[mergetool "fugitive"]
+	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+
+[merge]
+	tool = fugitive
+
+[color "diff"]
+	whitespace = red reverse
+
+[diff]
+	wsErrorHighlight = all

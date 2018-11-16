@@ -1,23 +1,29 @@
-audio/*; /usr/bin/xdg-open %s ; copiousoutput
+audio/*; /usr/bin/xdg-open %s &; copiousoutput
 
-image/*; /usr/bin/xdg-open %s ; copiousoutput
+image/*; /usr/bin/xdg-open %s &; copiousoutput
 
-application/msword;             libreoffice %s; copiousoutput
-application/vnd.msword;         libreoffice %s; copiousoutput
-application/excel;              libreoffice %s; copiousoutput
-application/msexcel;            libreoffice %s; copiousoutput
-application/vnd.ms-excel;       libreoffice %s; copiousoutput
-application/x-excel;            libreoffice %s; copiousoutput
-application/x-msexcel;          libreoffice %s; copiousoutput
-application/vnd.ms-powerpoint;  libreoffice %s; copiousoutput
-application/x-mspowerpoint;     libreoffice %s; copiousoutput
-application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; libreoffice '%s';  description="Office Open XML Spreadsheet"; nametemplate=%s.xlsxapplication/pdf; /usr/bin/xdg-open %s ; copiousoutput
-application/ppt;                libreoffice %s; copiousoutput
+application/msword;             libreoffice %s &; copiousoutput
+application/vnd.msword;         libreoffice %s &; copiousoutput
+application/excel;              libreoffice %s &; copiousoutput
+application/msexcel;            libreoffice %s &; copiousoutput
+application/vnd.ms-excel;       libreoffice %s &; copiousoutput
+application/x-excel;            libreoffice %s &; copiousoutput
+application/x-msexcel;          libreoffice %s &; copiousoutput
+application/vnd.ms-powerpoint;  libreoffice %s &; copiousoutput
+application/x-mspowerpoint;     libreoffice %s &; copiousoutput
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; libreoffice '%s' &;  description="Office Open XML Spreadsheet"; nametemplate=%s.xlsxapplication/pdf; /usr/bin/xdg-open %s ; copiousoutput
+application/ppt;                libreoffice %s &; copiousoutput
 
 application/pdf; mupdf %s; copiousoutput;
 application/postscript; /usr/bin/xdg-open %s ; copiousoutput
 
-#text/html; mv %s %s.html && qutebrowser %s.html >/dev/null 2>/dev/null; needsterminal;
-text/html; qutebrowser %s && sleep 5 ; test=test -n "$DISPLAY"; nametemplate=%s.html; needsterminal
-#text/html; lynx -dump %s ; copiousoutput; nametemplate=%s.html
-#text/html; w3m -I %{charset} -T text/html ; copiousoutput; nametemplate=%s.html
+application/ics; mutt-ics; copiousoutput
+application/x-pkcs7-signature;openssl pkcs7 -in %s -inform der -noout \
+-print_certs -text | less; needsterminal
+
+text/calendar; evolution %s; needsterminal
+text/calendar; mutt-ics; copiousoutput
+
+text/html; firefox %s; needsterminal
+text/html; w3m -I %{charset} -T text/html -dump %s; copiousoutput
+#text/html; qutebrowser %s && sleep 5 ; test=test -n "$DISPLAY"; nametemplate=%s.html; needsterminal

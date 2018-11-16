@@ -1,0 +1,65 @@
+###############################################################################
+# Nord Theme for Mutt
+#
+# @author Mariusz Zalewski <mariusz.zalewski@tty.host>
+
+# color3   - yellow
+# color109 - aqua
+# color12  - blue
+# color4   - blue dark
+# color110 - arctic blue
+# color117 - arctic blue light
+# color67  - arctic blue dark
+# color15  - white
+# color139 - purple
+# color144 - green
+# color173 - orange
+# color131 - red
+# color237 - black light
+# color235 - black dark
+# color246 - gray
+
+# general ------------ foreground ---- background -----------------------------
+color error		color15		color131
+color indicator		color15		color246
+color markers		color131	default
+color message		default		default
+color normal		default		default
+color prompt		default	        default
+color search		color4		default
+color status 		color110	color235
+color tilde		color15		default
+color tree		color110	default
+
+# message index ------ foreground ---- background -----------------------------
+color index		color131	default 	~D # deleted messages
+color index		color4		default 	~F # flagged messages
+color index		color117	default 	~N # new messages
+color index		color144	default 	~Q # messages which have been replied to
+color index		color3		default 	~T # tagged messages
+color index		color110	default		~v # messages part of a collapsed thread
+
+# message headers ---- foreground ---- background -----------------------------
+color hdrdefault	color110	default
+color header		color110	default		^From:.*
+color header		color15		default		^Subject:.*
+
+# message body ------- foreground ---- background -----------------------------
+color attachment	color3		default
+color body		color15		default		[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+               # email addresses
+color body		color3		default		(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+        # URLs
+color body		color15		default		(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$) # *bold* text
+color body		color15		default		(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)     # _underlined_ text
+color body		color15		default		(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)     # /italic/ text
+color quoted		color110	default
+color quoted1		color117	default
+color quoted2		color4		default
+color quoted3		color12		default
+color quoted4		color131	default
+color signature		color131	default
+
+# sidebar ------------  foreground ---- background -----------------------------
+color sidebar_highlight color231	color236
+color sidebar_indicator color15		color246
+color sidebar_new       color109	default
+color sidebar_divider   color110 	color236

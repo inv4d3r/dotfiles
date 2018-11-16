@@ -1,19 +1,24 @@
+source ~/.mutt/$THEME.muttrc
+
 # character set on messages that we send
-set send_charset="utf-8"
 # if there is no character set given on incoming messages, it is probably windows
-set assumed_charset="iso-8859-1"
+set charset="utf-8"
+set assumed_charset="utf-8"
+set send_charset="us-ascii:utf-8"
 
 # make sure Vim knows Mutt is a mail client and that we compose an UTF-8 encoded message
-set editor="vim -c 'set syntax=mail ft=mail enc=utf-8'"
+set editor="$EDITOR -c 'set syntax=mail ft=mail'"
 
 # just scroll one line instead of full page
 set menu_scroll=yes
 
+set mark_old=no
+
 # we want to see some MIME types inline, see below this code listing for explanation
 #auto_view application/msword
 #auto_view application/pdf
-auto_view text/html
-alternative_order text/plain text/enriched text/html
+auto_view text/html text/calendar application/ics
+alternative_order text/plain text/enriched text/html text/calendar
 
 # make default search pattern to search in To, Cc and Subject
 set simple_search="~f %s | ~C %s | ~s %s"
@@ -33,30 +38,12 @@ unignore        From To Cc Bcc Date Subject
 unhdr_order     *
 hdr_order       From: To: Cc: Bcc: Date: Subject:
 
-color normal      color15   color16
-color hdrdefault  color84   default
-color quoted      color84   default
-color quoted1     color228  default
-color quoted2     color160  default
-color signature   color141  default
-color indicator   color228  color61
-color error       color160  default
-color status      color15   color236
-color tree        color212  color16
-color tilde       color61   default
-color attachment  color228  default
-color markers     color160  default
-color message     color15   color16
-color search      color15   color212
-color bold        color228  default
-color index	  color61   color16 ~F
-color index	  color160  color16 "~N|~O"
-# if you don't like the black progress bar at the bottom of the screen,
-# comment out the following line
-#color progress    white          black
-
 # Sidebar
 set sidebar_visible
+set sidebar_short_path
+set sidebar_delim_chars="./"
+set sidebar_folder_indent
+set sidebar_indent_string="  "
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 set mail_check_stats
 
@@ -74,7 +61,8 @@ bind alias,index,browser,query G last-entry
 bind pager G bottom
 
 bind alias,index,browser,query gg first-entry
-bind pager gg top
+# conflicts with group reply
+#bind pager gg top
 
 bind alias,index,pager,browser,query \Cd half-down
 bind alias,index,pager,browser,query \Cu half-up
@@ -82,37 +70,43 @@ bind alias,index,pager,browser,query \Cu half-up
 bind index n search-next
 bind index N search-opposite
 
+macro index,pager u "<set-flag>N" "Mark as unread"
+
+#bind attach <return> view-mailcap
+
 macro index,pager \Cb | urlview\n
+macro attach W <save-entry><kill-line>/home/mzalewsk/downloads/
+macro index,pager \eo "<shell-escape>offlineimap -o<enter>" "run offlineimap"
 
 # personality settings
 set realname = "Mariusz Zalewski"
-set from = "mariusz.zalewski@tty.host"
+#set from = ""
 set use_from = yes
 
 # aliases (sort of address book)
+set alias_file=~/.mutt/aliases
 source ~/.mutt/aliases
 
-# IMAP connection settings
-set mail_check=60
-set imap_passive=no
-set imap_keepalive=10
+# IMAP configuration
 
-# IMAP account settings
-set imap_user="invader"
-set folder=imaps://imap.mailfence.com/
+# offlineimap
+set folder = "~/mail"
+source ~/.mutt/mailboxes
+set spoolfile = "+INBOX"
+set record = "+Sent\ Items"
+set postponed = "+Drafts"
 
-set spoolfile="+Inbox"
-set record="+Sent"
-set postponed="+Drafts"
+# msmtp
+set sendmail="msmtp"
 
-# use headercache for IMAP (make sure this is a directory for performance!)
-#set header_cache=/var/tmp/.mutt
+# notmuch
+macro index <F8> \
+	      "<enter-command>unset wait_key<enter><shell-escape>/usr/bin/notmuch-mutt --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" \
+	      "search mail (using notmuch)"
+macro index <F9> \
+		      "<enter-command>unset wait_key<enter><pipe-message>/usr/bin/notmuch-mutt thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" \
+		      "search and reconstruct owning thread (using notmuch)"
 
-# monitor all mailboxes
-set imap_check_subscribed
-
-# SMTP mailing configuration (for sending mail)
-set smtp_url=smtps://invader@smtp.mailfence.com:465/
 set ssl_force_tls = yes
 
 source ~/.gnupg/gpg.rc
@@ -122,3 +116,4 @@ set pgp_sign_as = 4985CE1A134D0BAD
 set pgp_timeout = 3600
 set crypt_autosign = yes
 set crypt_replyencrypt = yes
+

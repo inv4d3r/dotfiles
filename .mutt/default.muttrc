@@ -1,0 +1,22 @@
+# default color scheme
+
+color normal      color15   color16
+color hdrdefault  color84   default
+color quoted      color84   default
+color quoted1     color228  default
+color quoted2     color160  default
+color signature   color141  default
+color indicator   color228  color61
+color error       color160  default
+color status      color15   color236
+color tree        color212  color16
+color tilde       color61   default
+color attachment  color228  default
+color markers     color160  default
+color message     color15   color16
+color search      color15   color212
+color bold        color228  default
+color index	  color61   color16 ~F
+color index	  color160  color16 "~N|~O"
+#color progress    white          black
+

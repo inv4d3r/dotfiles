@@ -1,38 +1,41 @@
-[user]
-	email = mariush.zalewski@gmail.com
-	name = Mariusz Zalewski
 [core]
 	editor = vim
 	pager = less -F -X
+	gitproxy = /home/mzalewsk/.local/bin/gitproxy
 
 [alias]
-	st = status
-	stu = status -uno
-	fo = fetch origin
+	ama = am --abort
+	amc = am --continue
+	ams = am --skip
 	co = checkout
+	ch = cherry-pick
+	chq = cherry-pick --quit
+	cha = cherry-pick --abort
+	chc = cherry-pick --continue
 	c = commit
 	cm = commit -m
 	cam = commit -am
 	fix = commit --amend --no-edit
 	fixall = commit -a --amend --no-edit
+	fauth = commit --amend --no-edit --reset-author
+	dc = diff --cached
+	fo = fetch origin
+	fp = format-patch
+	ls = log --pretty=format:"%C(blue)%h\\ %C(white)%ai%C(cyan)%d\\ %C(reset)%s%C(yellow)\\ [%an\\ <%ae>]" --decorate
+	lign = !git ls-files -v | grep '^[[:lower]]'
+	ma = merge --abort
+	mc = merge --continue
 	mom = merge origin/master
 	rom = rebase origin/master
 	rbc = rebase --continue
 	rba = rebase --abort
 	rbs = rebase --skip
-	fp = format-patch
-	ama = am --abort
-	amc = am --continue
-	ams = am --skip
-	ch = cherry-pick
-	chq = cherry-pick --quit
-	cha = cherry-pick --abort
-	chc = cherry-pick --continue
+	st = status
+	stu = status -uno
 	au = update-index --assume-unchanged
 	nau = update-index --no-assume-unchanged
-	ls = log --pretty=format:"%C(blue)%h\\ %C(white)%ai%C(cyan)%d\\ %C(reset)%s%C(yellow)\\ [%cn]" --decorate
-	lign = !git ls-files -v | grep '^[[:lower]]'
-	dc = diff --cached
+	wta = worktree add
+	wtl = worktree list
 
 [mergetool "fugitive"]
 	cmd = vim -f -c \"Gdiff\" \"$MERGED\"

@@ -1,9 +1,7 @@
 " ---- Defaults ---- "
 
-syntax on
-filetype on
-filetype plugin on
-filetype indent on
+set foldmethod=syntax
+set foldlevelstart=1
 
 " line numbers
 set number
@@ -21,9 +19,6 @@ set showcmd
 " adjust colors for dark background
 set background=dark
 
-" true color
-set termguicolors
-
 " highlight search matches
 set hlsearch
 
@@ -31,13 +26,14 @@ set hlsearch
 set sessionoptions=buffers
 
 " show whitespace
-set listchars=tab:  
+set listchars=tab:→ ,nbsp:¬
 set list
 
+" always copy to plus register
 set clipboard=unnamedplus
 
 " horizontal line
-"set cursorline
+set cursorline
 
 " comply with Linux kernel coding style "
 set colorcolumn=81
@@ -144,6 +140,9 @@ else
    let airline_scheme_name = $THEME
 endif
 execute 'colorscheme' scheme_name
+
+" true color
+set termguicolors
 
 " ---- extra windows ---- "
 nnoremap <F2> :NERDTreeToggle<CR>

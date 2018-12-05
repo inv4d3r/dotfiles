@@ -1,7 +1,12 @@
 " ---- Defaults ---- "
 
 set foldmethod=syntax
-set foldlevelstart=1
+set foldlevelstart=4
+set foldopen=all
+set foldclose=all
+
+"file search path
+set path=./**,/usr/include/**
 
 " line numbers
 set number
@@ -54,10 +59,28 @@ highlight NonText ctermfg=239 guifg=gray
 " trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * syntax match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * syntax match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * syntax match ExtraWhitespace /\s\+$/
+
+" tabs
+highlight AnyTab ctermfg=gray guifg=gray
+autocmd ColorScheme * highlight AnyTab ctermfg=gray guifg=gray
+autocmd BufWinEnter * syntax match AnyTab /\t\+/
+autocmd InsertEnter * syntax match AnyTab /\t\+/
+autocmd InsertLeave * syntax match AnyTab /\t\+/
+
+" nbsp
+highlight NonBreakingSpace ctermbg=red guibg=red
+autocmd ColorScheme * highlight NonBreakingSpace ctermbg=yellow guibg=yellow
+autocmd BufWinEnter * syntax match NonBreakingSpace /\%xa0/
+autocmd InsertEnter * syntax match NonBreakingSpace /\%xa0/
+autocmd InsertLeave * syntax match NonBreakingSpace /\%xa0/
+
 autocmd BufWinLeave * call clearmatches()
+
+" cppman for cpp files
+autocmd FileType cpp set keywordprg=:term\ cppman
 
 
 " ---- Mappings ---- "
@@ -86,6 +109,17 @@ nnoremap <leader>bt :ls<CR>:sb
 nnoremap <leader>bv :vert sb <C-D>
 nnoremap <leader>bx :ls<CR>:vert sb 
 
+" trailing whitespace mappings
+" current buffer
+nnoremap <leader>wrb :%s/\s\+$//g<CR>
+nnoremap <leader>wsb /\s\+$<CR>
+" arglist
+nnoremap <leader>wra :argdo %s/\s\+$//g<CR>
+nnoremap <leader>wsa :vim /\s\+$/ ##<CR>
+" quickfix list
+nnoremap <leader>wrq :cdo s/\s\+$//g<CR>
+
+
 " ---- Plugins ---- "
 
 packadd minpac
@@ -94,9 +128,12 @@ call minpac#init()
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('ap/vim-css-color')
 call minpac#add('arcticicestudio/nord-vim')
+call minpac#add('christoomey/vim-tmux-navigator')
+call minpac#add('carlitux/deoplete-ternjs')
 call minpac#add('derekwyatt/vim-fswitch')
 call minpac#add('dracula/vim')
 call minpac#add('godlygeek/tabular')
+call minpac#add('gregsexton/gitv')
 call minpac#add('junegunn/fzf', { 'do' : './install --all' })
 call minpac#add('junegunn/fzf.vim')
 call minpac#add('k-takata/minpac', { 'type' : 'opt' })
@@ -106,15 +143,17 @@ call minpac#add('majutsushi/tagbar')
 call minpac#add('milkypostman/vim-togglelist')
 call minpac#add('morhetz/gruvbox')
 call minpac#add('nanotech/jellybeans.vim')
+call minpac#add('othree/jspc.vim')
 call minpac#add('roxma/nvim-yarp')
 call minpac#add('roxma/vim-hug-neovim-rpc')
-call minpac#add('sjl/badwolf')
 call minpac#add('scrooloose/nerdcommenter')
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('Shougo/deoplete.nvim')
 call minpac#add('Shougo/neoinclude.vim')
 call minpac#add('sirver/UltiSnips')
+call minpac#add('sjl/badwolf')
 call minpac#add('sjl/gundo.vim')
+call minpac#add('ternjs/tern_for_vim')
 call minpac#add('tommcdo/vim-exchange')
 call minpac#add('tpope/tpope-vim-abolish')
 call minpac#add('tpope/vim-endwise')
@@ -126,11 +165,13 @@ call minpac#add('tpope/vim-sleuth')
 call minpac#add('tyrannicaltoucan/vim-deep-space')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
+call minpac#add('vivien/vim-linux-coding-style')
 call minpac#add('w0rp/ale')
 call minpac#add('zchee/deoplete-clang')
+call minpac#add('zchee/deoplete-jedi')
 
 " colorscheme
-let g:nord_comment_brightness = 10
+let g:nord_comment_brightness = 20
 
 if $THEME == "" || $THEME == "default"
    let scheme_name = 'deep-space'
@@ -141,18 +182,38 @@ else
 endif
 execute 'colorscheme' scheme_name
 
+" ---- tags configuration ---- "
+" ---- generation
+set tags="tags"
+let g:gutentags_modules = [ "ctags" ]
+let g:gutentags_ctags_extra_args = ["--extra=+q", "/usr/include/c++"]
+"let g:gutentags_trace = 1
+
+" ---- navigation
+" open tag in vertical split
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+" already defined bindings:
+" CTRL-W CTRL-] - open tag in horizontal split
+" CTRL-W } - open tag in preview window
+" CTRL-W z - close preview window
+" from vim-unimpaired:
+" ]CTRL-T - preview window next tag
+" [CTRL-T - preview window previous tag
+
 " true color
 set termguicolors
 
 " ---- extra windows ---- "
 nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :GundoToggle<CR>
-nnoremap <F4> :Tagbar<CR>
+nnoremap <leader>t :Tagbar<CR>
 
 " ---- airline configuration ---- "
 let g:airline_theme             = airline_scheme_name
 let g:airline#extensions#branch#enabled = 2
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_left_sep          = ''
 let g:airline_left_alt_sep      = ''
 let g:airline_right_sep         = ''
@@ -175,6 +236,7 @@ nnoremap <leader>fe :cs f e <cword><CR>
 nnoremap <leader>ff :cs f f <cword><CR>
 nnoremap <leader>fi :cs f i <cword><CR>
 
+
 " ---- deoplete config ---- "
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path="/usr/lib/libclang.so"
@@ -184,7 +246,16 @@ let g:deoplete#sources#clang#clang_header="/usr/lib/clang/"
 autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
 
 " ---- switch to header/source ---- "
-map <leader>w :FSHere<CR>
+nnoremap <leader>e. :FSHere<CR>
+nnoremap <leader>et :FSTab<CR>
+nnoremap <leader>ek :FSAbove<CR>
+nnoremap <leader>ej :FSBelow<CR>
+nnoremap <leader>eh :FSLeft<CR>
+nnoremap <leader>el :FSRight<CR>
+nnoremap <leader>ewk :FSSplitAbove<CR>
+nnoremap <leader>ewj :FSSplitBelow<CR>
+nnoremap <leader>ewh :FSSplitLeft<CR>
+nnoremap <leader>ewl :FSSplitRight<CR>
 
 " ---- fzf config ---- "
 let g:fzf_command_prefix = "Fzf"
@@ -201,9 +272,25 @@ nnoremap <leader>zs :FzfSnippets<CR>
 nnoremap <leader>zt :FzfTags<CR>
 nnoremap <leader>zu :FzfBTags<CR>
 
+" fzf rg integration
+command! -bang -nargs=* FzfRg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
 " fzf ag shortcuts
 nnoremap <leader>ag :FzfAg <C-R><C-W><CR>
-nnoremap <leader>af :FzfAg struct <C-R><C-W> {<CR>
+nnoremap <leader>af :FzfAg <C-R><C-W>\(<CR>
+nnoremap <leader>as :FzfAg struct <C-R><C-W> {<CR>
+
+" fzf rg shortcuts
+nnoremap <leader>rg :FzfRg <C-R><C-W><CR>
+nnoremap <leader>rf :FzfRg <C-R><C-W>\(<CR>
+nnoremap <leader>rs :FzfRg struct <C-R><C-W> {<CR>
+
+let g:linuxsty_patterns = [ "/usr/src/", "/linux" ]
 
 " ---- latex configuration ---- "
 let g:tex_flavor = "latex"
@@ -218,6 +305,14 @@ autocmd BufEnter NERD_* setlocal rnu
 
 " ---- Substitute configuration ---- "
 map <leader>s :S/
+
+" ---- tmux seamless navigation ---- "
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <M-m>h :TmuxNavigateLeft<cr>
+nnoremap <silent> <M-m>j :TmuxNavigateDown<cr>
+nnoremap <silent> <M-m>k :TmuxNavigateUp<cr>
+nnoremap <silent> <M-m>l :TmuxNavigateRight<cr>
 
 " ---- UltiSnips configuration ---- "
 let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"

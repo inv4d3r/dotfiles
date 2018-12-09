@@ -1,22 +1,62 @@
 # default color scheme
+# @author Mariusz Zalewski <mariusz.zalewski@tty.host>
 
-color normal      color15   color16
-color hdrdefault  color84   default
-color quoted      color84   default
-color quoted1     color228  default
-color quoted2     color160  default
-color signature   color141  default
-color indicator   color228  color61
-color error       color160  default
-color status      color15   color236
-color tree        color212  color16
-color tilde       color61   default
-color attachment  color228  default
-color markers     color160  default
-color message     color15   color16
-color search      color15   color212
-color bold        color228  default
-color index	  color61   color16 ~F
-color index	  color160  color16 "~N|~O"
-#color progress    white          black
+# deepspace colors
+# gray1  - color234
+# gray2  - color238
+# gray3  - color242
+# gray4  - color246
+# gray5  - color250
+# red    - color132
+# green  - color71
+# yellow - color143
+# blue   - color68
+# purple - color97
+# cyan   - color73
+# orange - color137
+# pink   - color175
 
+# general ------------ foreground ---- background -----------------------------
+color error		color250		color132
+color indicator		color97		color234
+color markers		color132	default
+color message		default		default
+color normal		default		default
+color prompt		default	        default
+color search		color68		default
+color status 		color68	color234
+color tilde		color250		default
+color tree		color68	default
+
+# message index ------ foreground ---- background -----------------------------
+color index		color132	default 	~D # deleted messages
+color index		color68		default 	~F # flagged messages
+color index		color68	default 	~N # new messages
+color index		color73	default 	~Q # messages which have been replied to
+color index		color143		default 	~T # tagged messages
+color index		color68	default		~v # messages part of a collapsed thread
+
+# message headers ---- foreground ---- background -----------------------------
+color hdrdefault	color68	default
+color header		color68	default		^From:.*
+color header		color250		default		^Subject:.*
+
+# message body ------- foreground ---- background -----------------------------
+color attachment	color143		default
+color body		color250		default		[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+               # email addresses
+color body		color143		default		(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+        # URLs
+color body		color250		default		(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$) # *bold* text
+color body		color250		default		(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)     # _underlined_ text
+color body		color250		default		(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)     # /italic/ text
+color quoted		color68	default
+color quoted1		color68	default
+color quoted2		color68		default
+color quoted3		color68		default
+color quoted4		color132	default
+color signature		color132	default
+
+# sidebar ------------  foreground ---- background -----------------------------
+color sidebar_highlight color231	color236
+color sidebar_indicator color97		color234
+color sidebar_new       color71	default
+color sidebar_divider   color68 	color236

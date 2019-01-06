@@ -1,9 +1,14 @@
 " ---- Defaults ---- "
 
+" folds configuration
 set foldmethod=syntax
 set foldlevelstart=4
 set foldopen=all
 set foldclose=all
+
+" persistent undo
+set undofile
+set undodir=~/.vim/undodir
 
 "file search path
 set path=./**,/usr/include/**

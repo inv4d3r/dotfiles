@@ -1,0 +1,62 @@
+# grayscale (hybrid) color theme for mutt
+
+# color59 - selection
+# color16 - background
+# color188 - foreground
+# color66 - comment (icy blue)
+# color239 - gray
+# color167 - red
+# color52 - dark red
+# color173 - orange
+# color222 - yellow
+# color144 - green
+# color109 - aqua/blue
+# color139 - purple
+# color53 - dark purple
+
+color   index       color188        color16 ~P
+
+color   normal      color239         color16
+color   error       brightcolor16    color167
+color   indicator   color188         color239
+color   status      brightcolor109   color16
+
+color   hdrdefault  color245        color16
+color   header      brightcolor143  color16 "^(Subject): "
+color   signature   color188        color16
+
+color   body        color239        color16 [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color   body        color239        color16 ((https?|ftp)://|www)+[\-\.\;@,/%~_:?&=\#a-zA-Z0-9+]+
+
+color   quoted      color188        color16
+color   quoted1     color139        color16
+color   quoted2     color222        color16
+color   quoted3     color143        color16
+color   quoted4     color164        color16
+
+color   tilde       color109         color16
+color   tree        color139        color16
+color   attachment  brightcolor139  color16
+
+color   index       color164        color16 ~N
+
+# Colorize sidebar
+color   sidebar_new       color144         color16
+color   sidebar_indicator color109        color16
+color   sidebar_highlight color188        color239
+color   sidebar_divider   color109        color16
+
+color   index       brightcolor222  color16 ~F
+color   index       brightcolor109   color16 ~T
+color   index       color167        color16 ~D
+
+# Colorize inline diffs, really helpful for LKML or other mailing lists where
+# mails frequently include patches.
+color   body        brightcolor16   color16 '^diff .*'
+color   body        brightcolor16   color16 '^[Ii]{1}ndex .*'
+color   body        brightcolor16   color16 '^=+$'
+color   body        brightcolor16   color16 '^(---|\+\+\+) .*'
+color   body        brightcolor16   color16 '^@@ .*'
+color   body        color121        color16 '^\+([^\+].*)?$'
+color   body        color139        color16 '^-([^-].*)?$'
+

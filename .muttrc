@@ -14,6 +14,8 @@ set menu_scroll=yes
 
 set mark_old=no
 
+set quit=ask-yes
+
 # we want to see some MIME types inline, see below this code listing for explanation
 #auto_view application/msword
 #auto_view application/pdf

@@ -1,7 +1,6 @@
 [core]
 	editor = vim
 	pager = less -F -X
-	gitproxy = /home/mzalewsk/.local/bin/gitproxy
 
 [alias]
 	ama = am --abort

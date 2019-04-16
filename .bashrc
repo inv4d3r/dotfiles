@@ -14,6 +14,14 @@ alias ls='ls --color=auto'
 alias zathura='tabbed -c zathura -e'
 
 # exports
+export HISTSIZE=""
+export HISTCONTROL=ignoreboth:erasedups
+
+export AWESOMERC=~/.config/awesome/rc.lua
+export BASHRC=~/.bashrc
+export VIMRC=~/.vimrc
+export NVIMRC=~/.config/nvim/init.vim
+
 export EDITOR=vim
 export THEME=grayscale
 #export THEME=badwolf
@@ -21,12 +29,6 @@ export THEME=grayscale
 #export THEME=dracula
 #export THEME=gruvbox
 #export THEME=nord
-
-export HISTSIZE=""
-
-export BASHRC=~/.bashrc
-export VIMRC=~/.vimrc
-export NVIMRC=~/.config/nvim/init.vim
 
 case "$THEME" in
     default) PS1="\[\033[35m\]\u \[\033[39m\]at \[\033[36m\]\h\

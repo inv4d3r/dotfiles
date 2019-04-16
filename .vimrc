@@ -48,15 +48,12 @@ set clipboard=unnamedplus
 set cursorline
 
 " comply with Linux kernel coding style "
-set colorcolumn=81
+set colorcolumn=81,101,121
 
 " ---- Highlighting ---- "
 
-" current line highlight
-highlight CursorLine ctermbg=black ctermfg=None guibg=black
-
 " max column highlight
-highlight ColorColumn ctermbg=167 guibg=red
+"highlight ColorColumn ctermbg=167 guibg=red
 
 " signature colorize "
 highlight SignatureMarkText ctermfg=205 guifg=red
@@ -64,25 +61,25 @@ highlight Whitespace ctermfg=167 guifg=red
 highlight NonText ctermfg=239 guifg=gray
 
 " trailing whitespace
-highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd BufWinEnter * syntax match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * syntax match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * syntax match ExtraWhitespace /\s\+$/
+"highlight ExtraWhitespace ctermbg=red guibg=red
+"autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+"autocmd BufWinEnter * syntax match ExtraWhitespace /\s\+$/
+"autocmd InsertEnter * syntax match ExtraWhitespace /\s\+\%#\@<!$/
+"autocmd InsertLeave * syntax match ExtraWhitespace /\s\+$/
 
 " tabs
-highlight AnyTab ctermfg=gray guifg=gray
-autocmd ColorScheme * highlight AnyTab ctermfg=gray guifg=gray
-autocmd BufWinEnter * syntax match AnyTab /\t\+/
-autocmd InsertEnter * syntax match AnyTab /\t\+/
-autocmd InsertLeave * syntax match AnyTab /\t\+/
+"highlight AnyTab ctermfg=gray guifg=gray
+"autocmd ColorScheme * highlight AnyTab ctermfg=gray guifg=gray
+"autocmd BufWinEnter * syntax match AnyTab /\t\+/
+"autocmd InsertEnter * syntax match AnyTab /\t\+/
+"autocmd InsertLeave * syntax match AnyTab /\t\+/
 
 " nbsp
-highlight NonBreakingSpace ctermbg=red guibg=red
-autocmd ColorScheme * highlight NonBreakingSpace ctermbg=yellow guibg=yellow
-autocmd BufWinEnter * syntax match NonBreakingSpace /\%xa0/
-autocmd InsertEnter * syntax match NonBreakingSpace /\%xa0/
-autocmd InsertLeave * syntax match NonBreakingSpace /\%xa0/
+"highlight NonBreakingSpace ctermbg=red guibg=red
+"autocmd ColorScheme * highlight NonBreakingSpace ctermbg=yellow guibg=yellow
+"autocmd BufWinEnter * syntax match NonBreakingSpace /\%xa0/
+"autocmd InsertEnter * syntax match NonBreakingSpace /\%xa0/
+"autocmd InsertLeave * syntax match NonBreakingSpace /\%xa0/
 
 autocmd BufWinLeave * call clearmatches()
 
@@ -155,7 +152,7 @@ call minpac#add('othree/jspc.vim')
 call minpac#add('roxma/nvim-yarp')
 call minpac#add('roxma/vim-hug-neovim-rpc')
 call minpac#add('scrooloose/nerdcommenter')
-call minpac#add('scrooloose/nerdtree')
+"call minpac#add('scrooloose/nerdtree')
 call minpac#add('Shougo/deoplete.nvim')
 call minpac#add('Shougo/neoinclude.vim')
 call minpac#add('sirver/UltiSnips')
@@ -170,6 +167,7 @@ call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-sleuth')
+call minpac#add('tpope/vim-vinegar')
 call minpac#add('tyrannicaltoucan/vim-deep-space')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
@@ -218,7 +216,7 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 set termguicolors
 
 " ---- extra windows ---- "
-nnoremap <F2> :NERDTreeToggle<CR>
+"nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :GundoToggle<CR>
 nnoremap <leader>t :Tagbar<CR>
 
@@ -310,12 +308,12 @@ let g:linuxsty_patterns = [ "/usr/src/", "/linux" ]
 let g:tex_flavor = "latex"
 
 " ---- NERDCommenter configuration ---- "
-let g:NERDCompactSexyComs = 1
-let g:NERDTrimTrailingWhitespace = 1
+"let g:NERDCompactSexyComs = 1
+"let g:NERDTrimTrailingWhitespace = 1
 
 " ---- NERDTree configuration ---- "
-let g:NERDTreeShowLineNumbers=1
-autocmd BufEnter NERD_* setlocal rnu
+"let g:NERDTreeShowLineNumbers=1
+"autocmd BufEnter NERD_* setlocal rnu
 
 " ---- Substitute configuration ---- "
 map <leader>s :S/
@@ -332,3 +330,7 @@ nnoremap <silent> <M-m>l :TmuxNavigateRight<cr>
 let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsEnableSnipMate=0
+
+" ---- Debugging ---- "
+packadd termdebug
+let g:termdebug_wide = 163

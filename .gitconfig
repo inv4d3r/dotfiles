@@ -36,6 +36,11 @@
 	r = reset
 	rsh = reset --hard
 	rss = reset --soft
+	rea = remote add
+	ren = remote rename
+	rer = remote remove
+	reg = remote get-url
+	res = remote set-url
 	s = stash
 	sp = stash pop
 	st = status

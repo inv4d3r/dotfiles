@@ -15,6 +15,9 @@ set foldlevelstart=4
 set foldopen=all
 set foldclose=all
 
+" needed for lightline to show up on single buffer
+set laststatus=2
+
 " persistent undo
 set undofile
 set undodir=~/.vim/undodir
@@ -143,6 +146,7 @@ call minpac#add('k-takata/minpac', { 'type' : 'opt' })
 call minpac#add('RRethy/vim-hexokinase')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('kshenoy/vim-signature')
+call minpac#add('bfrg/vim-cpp-modern')
 
 " colorscheme plugins
 call minpac#add('dracula/vim')
@@ -283,7 +287,7 @@ set termguicolors
 
 " ---- extra windows ---- "
 nnoremap <F3> :GundoToggle<CR>
-nnoremap <leader>t :Tagbar<CR>
+nnoremap <F4> :Tagbar<CR>
 
 " ---- cscope mappings ---- "
 
@@ -399,6 +403,14 @@ let g:UltiSnipsEnableSnipMate=0
 packadd termdebug
 let g:termdebug_wide = 163
 
+nnoremap <silent> <leader>tb :Break<CR>
+nnoremap <silent> <leader>tc :Clear<CR>
+nnoremap <silent> <leader>ts :Step<CR>
+nnoremap <silent> <leader>to :Over<CR>
+nnoremap <silent> <leader>tf :Finish<CR>
+nnoremap <silent> <leader>tc :Continue<CR>
+nnoremap <silent> <leader>tt :Stop<CR>
+
 " ---- coc.nvim configuration ---- "
 
 " use tab for trigger completion with characters ahead and navigate.
@@ -429,10 +441,26 @@ nmap <leader>ga  <Plug>(coc-codeaction-selected)
 nmap <leader>gc  <Plug>(coc-codeaction)
 
 " remap keys for gotos
-nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>gy <Plug>(coc-type-definition)
-nmap <silent> <leader>gi <Plug>(coc-implementation)
-nmap <silent> <leader>gr <Plug>(coc-references)
+nmap <silent> <leader>gd. <Plug>(coc-definition)
+nnoremap <silent> <leader>gdd :call CocLocations('ccls','textDocument/definition', {}, 'drop')<cr>
+nnoremap <silent> <leader>gds :call CocLocations('ccls','textDocument/definition', {}, 'split')<cr>
+nnoremap <silent> <leader>gdv :call CocLocations('ccls','textDocument/definition', {}, 'vsplit')<cr>
+nmap <silent> <leader>gl. <Plug>(coc-declaration)
+nnoremap <silent> <leader>gld :call CocLocations('ccls','textDocument/declaration', {}, 'drop')<cr>
+nnoremap <silent> <leader>gls :call CocLocations('ccls','textDocument/declaration', {}, 'split')<cr>
+nnoremap <silent> <leader>glv :call CocLocations('ccls','textDocument/declaration', {}, 'vsplit')<cr>
+nmap <silent> <leader>gt. <Plug>(coc-type-definition)
+nnoremap <silent> <leader>gtd :call CocLocations('ccls','textDocument/typeDefinition', {}, 'drop')<cr>
+nnoremap <silent> <leader>gts :call CocLocations('ccls','textDocument/typeDefinition', {}, 'split')<cr>
+nnoremap <silent> <leader>gtv :call CocLocations('ccls','textDocument/typeDefinition', {}, 'vsplit')<cr>
+nmap <silent> <leader>gi. <Plug>(coc-implementation)
+nnoremap <silent> <leader>gid :call CocLocations('ccls','textDocument/implementation', {}, 'drop')<cr>
+nnoremap <silent> <leader>gis :call CocLocations('ccls','textDocument/implementation', {}, 'split')<cr>
+nnoremap <silent> <leader>giv :call CocLocations('ccls','textDocument/implementation', {}, 'vsplit')<cr>
+nmap <silent> <leader>gr. <Plug>(coc-references)
+nnoremap <silent> <leader>grd :call CocLocations('ccls','textDocument/references', {}, 'drop')<cr>
+nnoremap <silent> <leader>grs :call CocLocations('ccls','textDocument/references', {}, 'split')<cr>
+nnoremap <silent> <leader>grv :call CocLocations('ccls','textDocument/references', {}, 'vsplit')<cr>
 
 " remap for format selected region
 vmap <leader>gf  <Plug>(coc-format-selected)
@@ -451,7 +479,7 @@ nmap <leader>gp  <Plug>(coc-fix-current)
 " show all diagnostics
 nnoremap <silent> <leader>da :<C-u>CocList diagnostics<cr>
 " manage extensions
-nnoremap <silent> <leader>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>de :<C-u>CocList extensions<cr>
 " show commands
 nnoremap <silent> <leader>dc :<C-u>CocList commands<cr>
 " find symbol of current document
@@ -513,7 +541,6 @@ nnoremap <silent> <leader>xf :call CocLocations('ccls','$ccls/member',{'kind':3}
 " nested classes / types in a namespace
 nnoremap <silent> <leader>xs :call CocLocations('ccls','$ccls/member',{'kind':2})<cr>
 
-nmap <silent> <leader>xt <Plug>(coc-type-definition)<cr>
 nnoremap <silent> <leader>xv :call CocLocations('ccls','$ccls/vars')<cr>
 nnoremap <silent> <leader>xV :call CocLocations('ccls','$ccls/vars',{'kind':1})<cr>
 

@@ -6,3 +6,5 @@ set print pretty
 set print symbol-filename on
 set print array on
 set print array-indexes on
+
+skip -gfi /usr/include/c++/8/bits/*.h

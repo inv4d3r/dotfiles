@@ -7,6 +7,7 @@
 	amc = am --continue
 	ams = am --skip
 	co = checkout
+	cob = checkout -b
 	ch = cherry-pick
 	chq = cherry-pick --quit
 	cha = cherry-pick --abort
@@ -28,6 +29,7 @@
 	ma = merge --abort
 	mc = merge --continue
 	mom = merge origin/master
+	mt = mergetool
 	rom = rebase origin/master
 	rbi = rebase -i
 	rbc = rebase --continue
@@ -44,6 +46,7 @@
 	s = stash
 	sp = stash pop
 	st = status
+	sts = status -sb
 	stu = status -uno
 	sa = submodule add
 	su = submodule update

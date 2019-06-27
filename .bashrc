@@ -22,6 +22,8 @@ export BASHRC=~/.bashrc
 export VIMRC=~/.vimrc
 export NVIMRC=~/.config/nvim/init.vim
 
+export RTV_BROWSER=qutebrowser
+
 export EDITOR=vim
 export THEME=grayscale
 #export THEME=badwolf

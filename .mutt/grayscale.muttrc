@@ -14,9 +14,9 @@
 # color139 - purple
 # color53 - dark purple
 
-color   index       color188        color16 ~P
+color   index       color109        color16 ~P
 
-color   normal      color239        color16
+color   normal      color188        color16
 color   error       brightcolor16   color167
 color   indicator   color188        color239
 color   status      color245        color16
@@ -25,8 +25,8 @@ color   hdrdefault  color245        color16
 color   header      brightcolor143  color16 "^(Subject): "
 color   signature   color188        color16
 
-color   body        color239        color16 [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
-color   body        color239        color16 ((https?|ftp)://|www)+[\-\.\;@,/%~_:?&=\#a-zA-Z0-9+]+
+color   body        color109        color16 [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color   body        color109        color16 ((https?|ftp)://|www)+[\-\.\;@,/%~_:?&=\#a-zA-Z0-9+]+
 
 color   quoted      color188        color16
 color   quoted1     color139        color16

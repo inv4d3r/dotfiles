@@ -1,0 +1,55 @@
+#appearance
+colors dark
+set hintuppercase false
+set hintchars asdfghjkl
+
+# restore multiple windows properly
+bind ZZ !s killall firefox
+
+# qutebrowser-like bindings
+bind O fillcmdline tabopen
+bind go current_url open
+bind gO current_url tabopen
+#bind M current_url bmark
+bind J tabnext
+bind K tabprev
+# rapid hint
+bind ;r hint -qb
+
+# disable tridactyl in gmail
+autocmd DocStart mail.google.com mode ignore
+
+" new reddit is bad
+autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
+
+" subreddit shortcuts
+bind <c-r> fillcmdline_notrail open https://old.reddit.com/r/
+bind <c-R> fillcmdline_notrail tabopen https://old.reddit.com/r/
+
+" quickmarks
+quickmark a allegro.pl
+quickmark b airdates.tv
+quickmark c ceneo.pl
+quickmark d cinkciarz.pl/wymiana-walut/kursy-walut-cinkciarz-pl
+quickmark e coursera.org
+quickmark f facebook.com
+quickmark g gmail.com
+quickmark h filmweb.pl
+quickmark i imdb.com
+quickmark j linuxjournal.com
+quickmark k lkml.org
+quickmark l linkedin.com
+quickmark m https://mailfence.com
+quickmark n nofluffjobs.com
+quickmark o maps.openrouteservice.org
+quickmark p lwn.net
+quickmark q gcc.godbolt.org
+quickmark r release24.pl
+quickmark s scnsrc.me
+quickmark t translate.google.com
+quickmark u trojmiasto.pl
+quickmark v vimcasts.org
+quickmark w wiki.archlinux.org
+quickmark x aliexpress.com
+quickmark y youtube.com
+quickmark z mega.nz

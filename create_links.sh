@@ -6,6 +6,7 @@ ln -fs "$PWD/".bashrc ~/.bashrc
 ln -fs "$PWD/".fzf.bash ~/.fzf.bash
 ln -fs "$PWD/".fzf.zsh ~/.fzf.zsh
 ln -fs "$PWD/".gitconfig ~/.gitconfig
+ln -fs "$PWD/".gitignore_global ~/.gitignore_global
 ln -fs "$PWD/".inputrc ~/.inputrc
 ln -fs "$PWD/".urlview ~/.urlview
 ln -fs "$PWD/".mutt ~/.mutt

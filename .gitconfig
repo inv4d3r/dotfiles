@@ -1,6 +1,7 @@
 [core]
 	editor = vim
 	pager = less -F -X
+	excludesfile = ~/.gitignore_global
 
 [alias]
 	ama = am --abort

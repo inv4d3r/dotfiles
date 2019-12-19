@@ -21,6 +21,7 @@
 	fix = commit --amend --no-edit
 	fixall = commit -a --amend --no-edit
 	fauth = commit --amend --no-edit --reset-author
+	cl = clean -dfx
 	dc = diff --cached
 	f = fetch
 	fo = fetch origin
@@ -69,3 +70,6 @@
 
 [diff]
 	wsErrorHighlight = all
+[user]
+	name = Mariusz Zalewski
+	email = mariusz.zalewski@partner.bmw.de

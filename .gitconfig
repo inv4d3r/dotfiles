@@ -60,7 +60,7 @@
 	wtp = worktree prune
 
 [mergetool "fugitive"]
-	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+	cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 
 [merge]
 	tool = fugitive

@@ -15,6 +15,7 @@ ln -fs "$PWD/".mailcap ~/.mailcap
 #ln -fs "$PWD/".pentadactylrc ~/.pentadactylrc
 ln -fs "$PWD/".rtorrent.rc ~/.rtorrent.rc
 ln -fs "$PWD/".tmux.conf ~/.tmux.conf
+ln -fs "$PWD/".tridactylrc ~/.tridactylrc
 ln -fs "$PWD/".vimrc ~/.vimrc
 #ln -fs "$PWD/".Xdefaults ~/.Xdefaults
 ln -fs "$PWD/".xinitrc ~/.xinitrc

@@ -22,8 +22,10 @@ export BASHRC=~/.bashrc
 export VIMRC=~/.vimrc
 export NVIMRC=~/.config/nvim/init.vim
 
+export BROWSER=qutebrowser
 export RTV_BROWSER=qutebrowser
 
+export FONT_FAMILY="Fira Code"
 export EDITOR=vim
 export THEME=grayscale
 #export THEME=badwolf

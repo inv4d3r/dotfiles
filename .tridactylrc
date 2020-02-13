@@ -1,3 +1,9 @@
+# unbind everything first
+unbind --mode=normal go
+
+# show indicator for partial commands
+set modeindicatorshowkeys true
+
 #appearance
 colors dark
 set hintuppercase false
@@ -8,7 +14,7 @@ bind ZZ !s killall firefox
 
 # qutebrowser-like bindings
 bind O fillcmdline tabopen
-bind go current_url open
+#bind go current_url open
 bind gO current_url tabopen
 #bind M current_url bmark
 bind J tabnext
@@ -19,14 +25,14 @@ bind ;r hint -qb
 # disable tridactyl in gmail
 autocmd DocStart mail.google.com mode ignore
 
-" new reddit is bad
+# new reddit is bad
 autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
 
-" subreddit shortcuts
+# subreddit shortcuts
 bind <c-r> fillcmdline_notrail open https://old.reddit.com/r/
 bind <c-R> fillcmdline_notrail tabopen https://old.reddit.com/r/
 
-" quickmarks
+# quickmarks
 quickmark a allegro.pl
 quickmark b airdates.tv
 quickmark c ceneo.pl

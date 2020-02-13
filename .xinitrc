@@ -14,7 +14,8 @@ pasystray &
 udiskie --tray &
 setxkbmap -option caps:escape &
 
-cat ~/.config/termite/base > ~/.config/termite/config
-cat ~/.config/termite/$THEME >> ~/.config/termite/config
+envsubst < ~/.config/kitty/kitty.baseconf > ~/.config/kitty/kitty.conf
+envsubst < ~/.config/termite/base > ~/.config/termite/config
+envsubst < ~/.config/termite/$THEME >> ~/.config/termite/config
 
 exec awesome

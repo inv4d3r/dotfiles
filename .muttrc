@@ -72,6 +72,9 @@ bind alias,index,pager,browser,query \Cu half-up
 bind index n search-next
 bind index N search-opposite
 
+macro index A \
+    "<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" \
+    "mark all new as read"
 macro index,pager u "<set-flag>N" "Mark as unread"
 
 #bind attach <return> view-mailcap

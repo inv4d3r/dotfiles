@@ -52,6 +52,10 @@ esac
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# Java
+[ -f /etc/profile.d/jre.sh ] && source /etc/profile.d/jre.sh
+[ -d /usr/lib/jvm/default/ ] && export JAVA_HOME=/usr/lib/jvm/default/
+
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
   exec startx
 fi

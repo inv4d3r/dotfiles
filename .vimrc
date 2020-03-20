@@ -23,7 +23,7 @@ set undofile
 set undodir=~/.vim/undodir
 
 "file search path
-set path=./**,/usr/include/**
+set path=.,,/usr/include,**
 
 " line numbers
 set number
@@ -45,7 +45,7 @@ set background=dark
 set hlsearch
 
 " mksession options
-set sessionoptions=buffers
+set sessionoptions=buffers,curdir,tabpages,winpos,winsize
 
 " show whitespace
 set listchars=tab:→ ,nbsp:¬
@@ -54,20 +54,23 @@ set list
 " always copy to plus register
 set clipboard=unnamedplus
 
-" horizontal line
-set cursorline
-
 " comply with Linux kernel coding style "
 set colorcolumn=81,101,121
 
 " ---- Highlighting ---- "
 
+highlight debugPC ctermbg=gray guibg=gray
+highlight debugBreakpoint ctermbg=gray guibg=gray
+autocmd ColorScheme * highlight debugPC ctermbg=gray guibg=gray
+autocmd ColorScheme * highlight debugBreakpoint ctermbg=gray guibg=gray
+
 " max column highlight
+highlight ColorColumn ctermbg=red guibg=red
 
 " trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd BufWinEnter * syntax match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 " tabs
@@ -85,17 +88,15 @@ if executable("cppman")
   autocmd FileType cpp set keywordprg=:term\ cppman
 endif
 
+" disable syntax for large files
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif
+
 " ---- Mappings ---- "
 nnoremap <C-l> :nohl<CR>
+nnoremap <leader>V ^v$
 
 " execute command from current line
 nnoremap <leader><CR> :execute getline(".")<CR>
-
-" view alternative buffer
-nnoremap <space> <C-^>
-
-" go to current file's path
-nnoremap gc :cd %:p:h<CR>:pwd<CR>
 
 " go to current file's path
 nnoremap <leader>pc :cd %:p:h<CR>:pwd<CR>
@@ -128,11 +129,24 @@ nnoremap <leader>wsb /\s\+$<CR>
 nnoremap <leader>wra :argdo %s/\s\+$//g<CR>
 nnoremap <leader>wsa :vim /\s\+$/ ##<CR>
 " quickfix list
-nnoremap <leader>wrq :cdo s/\s\+$//g<CR>
+nnoremap <leader>wrq :cdo s/\s\+$//<CR>
 
 " search current word in arglist
 nnoremap <leader>v :vim <cword> ##<CR>
 
+" remove windows line endings in current buffer
+nnoremap <leader>wlr :%s/\r//g<CR>
+
+" clang-format
+nnoremap <leader>kl :pyf /usr/share/clang/clang-format.py<cr>
+
+function! ClangFormatFile()
+  let l:lines="all"
+  pyf /usr/share/clang/clang-format.py
+endfunction
+nnoremap <leader>kf :call ClangFormatFile()<CR>
+
+autocmd BufWritePre *.h,*.hpp,*.c,*.cpp call ClangFormatFile()
 
 " ---- Plugins ---- "
 
@@ -146,12 +160,13 @@ call minpac#add('k-takata/minpac', { 'type' : 'opt' })
 call minpac#add('RRethy/vim-hexokinase')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('kshenoy/vim-signature')
-call minpac#add('bfrg/vim-cpp-modern')
 
 " colorscheme plugins
-call minpac#add('dracula/vim')
+call minpac#add('dracula/vim', {'name': 'dracula'})
+packadd! dracula
 call minpac#add('arcticicestudio/nord-vim')
 call minpac#add('morhetz/gruvbox')
+call minpac#add('sainnhe/gruvbox-material')
 call minpac#add('nanotech/jellybeans.vim')
 call minpac#add('sjl/badwolf')
 call minpac#add('tyrannicaltoucan/vim-deep-space')
@@ -159,17 +174,23 @@ call minpac#add('w0ng/vim-hybrid')
 call minpac#add('kristijanhusak/vim-hybrid-material')
 
 " autocompletion & tags plugins
-call minpac#add('neoclide/coc.nvim')
-call minpac#add('neoclide/vim-node-rpc')
-"call minpac#add('roxma/nvim-yarp')
-"call minpac#add('roxma/vim-hug-neovim-rpc')
-"call minpac#add('Shougo/deoplete.nvim', { 'rev': '04ea041', 'do': ':UpdateRemotePlugins'})
-"call minpac#add('Shougo/neoinclude.vim')
-"call minpac#add('carlitux/deoplete-ternjs')
-"call minpac#add('tweekmonster/deoplete-clang2')
-"call minpac#add('zchee/deoplete-jedi')
+call minpac#add('neoclide/coc.nvim', { 'do': '!yarn --frozen-lockfile install' })
+call minpac#add('neoclide/coc-git', { 'do': '!yarn --frozen-lockfile install' })
+call minpac#add('neoclide/coc-json', { 'do': '!yarn --frozen-lockfile install' })
+call minpac#add('neoclide/coc-python', { 'do': '!yarn --frozen-lockfile install' })
+call minpac#add('neoclide/coc-snippets', { 'do': '!yarn --frozen-lockfile install' })
+call minpac#add('clangd/coc-clangd', { 'do': '!yarn --frozen-lockfile install' })
+call minpac#add('fannheyward/coc-markdownlint', { 'do': '!yarn --frozen-lockfile install' })
+call minpac#add('fannheyward/coc-xml', { 'do': '!yarn --frozen-lockfile install' })
+"call minpac#add('iamcco/coc-vimlsp', { 'do': '!yarn --frozen-lockfile install' })
+call minpac#add('voldikss/coc-cmake', { 'do': '!yarn --frozen-lockfile install' })
+call minpac#add('weirongxu/coc-explorer', { 'do': '!yarn --frozen-lockfile install' })
+
+call minpac#add('liuchengxu/vista.vim')
+let g:vista_default_executive = 'coc'
+nnoremap <F2> :Vista!!<CR>
+
 call minpac#add('majutsushi/tagbar')
-"call minpac#add('ludovicchabant/vim-gutentags')
 call minpac#add('othree/jspc.vim')
 call minpac#add('ternjs/tern_for_vim')
 
@@ -184,11 +205,33 @@ call minpac#add('dhruvasagar/vim-table-mode')
 call minpac#add('godlygeek/tabular')
 call minpac#add('gregsexton/gitv')
 call minpac#add('tommcdo/vim-exchange')
-call minpac#add('roxma/vim-tmux-clipboard')
+call minpac#add('raimondi/delimitmate')
+call minpac#add('yggdroot/indentline')
+
+" markdown
+call minpac#add('iamcco/markdown-preview.nvim')
+let g:mkdp_browser = 'firefox'
+nnoremap <leader>mp :silent! MarkdownPreview<CR>
+
+" uml
+call minpac#add('aklt/plantuml-syntax')
+"call minpac#add('scrooloose/vim-slumlord')
+
+let g:wordmotion_prefix = '<Space>'
+call minpac#add('chaoren/vim-wordmotion')
+
+" tmux seamless navigation "
+let g:tmux_navigator_no_mappings = 1
 call minpac#add('christoomey/vim-tmux-navigator')
+call minpac#add('roxma/vim-tmux-clipboard')
+
 call minpac#add('sjl/gundo.vim')
 call minpac#add('tpope/tpope-vim-abolish')
 call minpac#add('tpope/vim-endwise')
+
+call minpac#add('tpope/vim-dispatch')
+nnoremap <leader>m :Make<CR>
+
 call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-surround')
@@ -213,21 +256,35 @@ call minpac#add('shinchu/lightline-gruvbox.vim')
 call minpac#add('844196/lightline-badwolf.vim')
 
 " colorscheme
-let g:nord_comment_brightness = 20
-
 if $THEME == "" || $THEME == "default"
-   let scheme_name = 'deep-space'
-   let airline_scheme_name = 'deep_space'
-elseif $THEME == "grayscale" || $THEME == "hybrid"
-   let g:enable_bold_font = 1
-   let g:enable_italic_font = 1
-   let scheme_name = 'hybrid_reverse'
-   let airline_scheme_name = 'minimalist'
+  let scheme_name = 'deep-space'
+  let lightline_name = 'deepspace'
+elseif $THEME == "badwolf"
+  let scheme_name = 'badwolf'
+  let lightline_name = 'badwolf'
+elseif $THEME == "dracula"
+  let scheme_name = 'dracula'
+  let lightline_name = 'darcula'
+elseif $THEME == "grayscale"
+  let g:enable_bold_font = 1
+  let g:enable_italic_font = 1
+  "let scheme_name = 'hybrid'
+  "let scheme_name = 'hybrid_material'
+  let scheme_name = 'hybrid_reverse'
+  let lightline_name = 'hybrid'
+elseif $THEME == "gruvbox"
+  " hard, medium (default, soft
+  let g:gruvbox_material_background = 'hard'
+  let scheme_name = 'gruvbox-material'
+  let lightline_name = 'gruvbox_material'
+elseif $THEME == "nord"
+  let scheme_name = 'nord'
+  let lightline_name = 'nord'
 else
-   let scheme_name = $THEME
-   let airline_scheme_name = $THEME
+  let scheme_name = $THEME
+  "let lightline_name = 'jellybeans'
+  let lightline_name = 'one'
 endif
-execute 'colorscheme' scheme_name
 
 " ---- lightline configution ---- "
 " hybrid - (cocopon) hybrid, deus, one, solarized
@@ -238,21 +295,28 @@ execute 'colorscheme' scheme_name
 " gruvbox - (shinchu) gruvbox
 " badwolf - (844196) badwolf, molokai
 
+function! NearestMethod() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
       "\   'ale': '%{ale#statusline#Status()}',
 let g:lightline = {
-      \ 'colorscheme': 'hybrid',
+      \ 'colorscheme': lightline_name,
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'tagbar', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'cocstatus', 'vistameth', 'gitbranch', 'readonly', 'relativepath', 'modified' ] ]
       \ },
       \ 'component': {
       \   'tagbar': '%{tagbar#currenttag("%s", "", "f")}'
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
+      \   'cocstatus': 'coc#status',
+      \   'vistameth': 'NearestMethod'
       \ },
       \ }
 
+execute 'colorscheme' scheme_name
 " ---- syntastic configuration ---- "
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
@@ -309,15 +373,15 @@ nnoremap <leader>ft :cs f t <cword><CR>
 nnoremap <leader>fe :cs f e <cword><CR>
 nnoremap <leader>ff :cs f f <cword><CR>
 nnoremap <leader>fi :cs f i <cword><CR>
-nnoremap <leader>fsa :scs f a <cword><CR>
-nnoremap <leader>fss :scs f s <cword><CR>
-nnoremap <leader>fsg :scs f g <cword><CR>
-nnoremap <leader>fsd :scs f d <cword><CR>
-nnoremap <leader>fsc :scs f c <cword><CR>
-nnoremap <leader>fst :scs f t <cword><CR>
-nnoremap <leader>fse :scs f e <cword><CR>
-nnoremap <leader>fsf :scs f f <cword><CR>
-nnoremap <leader>fsi :scs f i <cword><CR>
+nnoremap <leader>fxa :scs f a <cword><CR>
+nnoremap <leader>fxs :scs f s <cword><CR>
+nnoremap <leader>fxg :scs f g <cword><CR>
+nnoremap <leader>fxd :scs f d <cword><CR>
+nnoremap <leader>fxc :scs f c <cword><CR>
+nnoremap <leader>fxt :scs f t <cword><CR>
+nnoremap <leader>fxe :scs f e <cword><CR>
+nnoremap <leader>fxf :scs f f <cword><CR>
+nnoremap <leader>fxi :scs f i <cword><CR>
 nnoremap <leader>fla :lcs f a <cword><CR>
 nnoremap <leader>fls :lcs f s <cword><CR>
 nnoremap <leader>flg :lcs f g <cword><CR>
@@ -329,15 +393,11 @@ nnoremap <leader>flf :lcs f f <cword><CR>
 nnoremap <leader>fli :lcs f i <cword><CR>
 set cscopequickfix=s-,c-,d-,i-,t-,e-,a-
 
-" ---- deoplete config ---- "
-"let g:deoplete#enable_at_startup = 1
-"let g:deoplete#sources#clang#libclang_path="/usr/lib64/libclang.so"
-"let g:deoplete#sources#clang#clang_header="/usr/lib64/clang"
-
 " close preview window when leaving insert mode
 "autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
 
 " ---- switch to header/source ---- "
+let g:fsnonewfiles = "on"
 nnoremap <leader>e. :FSHere<CR>
 nnoremap <leader>et :FSTab<CR>
 nnoremap <leader>ek :FSAbove<CR>
@@ -357,20 +417,14 @@ nnoremap <leader>zc :FzfCommits<CR>
 nnoremap <leader>zd :FzfBCommits<CR>
 nnoremap <leader>ze :FzfCommands<CR>
 nnoremap <leader>zf :FzfFiles<CR>
+nnoremap <leader>zh: :FzfHistory:<CR>
+nnoremap <leader>zh/ :FzfHistory/<CR>
 nnoremap <leader>zg :FzfGFiles<CR>
-nnoremap <leader>zh :FzfGFiles?<CR>
+nnoremap <leader>zg? :FzfGFiles?<CR>
 nnoremap <leader>zm :FzfMarks<CR>
 nnoremap <leader>zs :FzfSnippets<CR>
 nnoremap <leader>zt :FzfTags<CR>
 nnoremap <leader>zu :FzfBTags<CR>
-
-" fzf rg integration
-command! -bang -nargs=* FzfRg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
 
 " fzf ag shortcuts
 nnoremap <leader>ag :FzfAg <C-R><C-W><CR>
@@ -394,9 +448,6 @@ let g:NERDTrimTrailingWhitespace = 1
 " ---- Substitute configuration ---- "
 map <leader>s :S/
 
-" ---- tmux seamless navigation ---- "
-let g:tmux_navigator_no_mappings = 1
-
 " ---- UltiSnips configuration ---- "
 let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
 let g:UltiSnipsExpandTrigger="<C-j>"
@@ -406,13 +457,18 @@ let g:UltiSnipsEnableSnipMate=0
 packadd termdebug
 let g:termdebug_wide = 163
 
-nnoremap <silent> <leader>tb :Break<CR>
-nnoremap <silent> <leader>tc :Clear<CR>
-nnoremap <silent> <leader>ts :Step<CR>
-nnoremap <silent> <leader>to :Over<CR>
-nnoremap <silent> <leader>tf :Finish<CR>
-nnoremap <silent> <leader>tc :Continue<CR>
-nnoremap <silent> <leader>tt :Stop<CR>
+nnoremap <silent> <leader>tg :Gdb<CR>
+nnoremap <silent> <leader>tp :Program<CR>
+nnoremap <silent> <leader>ts :Source<CR>
+
+nnoremap <silent> <F5> :Continue<CR>
+nnoremap <silent> <F6> :Finish<CR>
+nnoremap <silent> <F7> :Stop<CR>
+nnoremap <silent> <F8> :Clear<CR>
+nnoremap <silent> <F9> :Break<CR>
+nnoremap <silent> <F10> :Over<CR>
+nnoremap <silent> <F11> :Step<CR>
+nnoremap <silent> <F12> :Run<CR>
 
 " ---- coc.nvim configuration ---- "
 
@@ -428,6 +484,8 @@ nnoremap <silent> <leader>tt :Stop<CR>
   "let col = col('.') - 1
   "return !col || getline('.')[col - 1]  =~# '\s'
 "endfunction
+
+nnoremap <leader>ge :CocCommand explorer<CR>
 
 " use <c-space> for trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -445,25 +503,65 @@ nmap <leader>gc  <Plug>(coc-codeaction)
 
 " remap keys for gotos
 nmap <silent> <leader>gd. <Plug>(coc-definition)
-nnoremap <silent> <leader>gdd :call CocLocations('ccls','textDocument/definition', {}, 'drop')<cr>
-nnoremap <silent> <leader>gds :call CocLocations('ccls','textDocument/definition', {}, 'split')<cr>
-nnoremap <silent> <leader>gdv :call CocLocations('ccls','textDocument/definition', {}, 'vsplit')<cr>
 nmap <silent> <leader>gl. <Plug>(coc-declaration)
-nnoremap <silent> <leader>gld :call CocLocations('ccls','textDocument/declaration', {}, 'drop')<cr>
-nnoremap <silent> <leader>gls :call CocLocations('ccls','textDocument/declaration', {}, 'split')<cr>
-nnoremap <silent> <leader>glv :call CocLocations('ccls','textDocument/declaration', {}, 'vsplit')<cr>
 nmap <silent> <leader>gt. <Plug>(coc-type-definition)
-nnoremap <silent> <leader>gtd :call CocLocations('ccls','textDocument/typeDefinition', {}, 'drop')<cr>
-nnoremap <silent> <leader>gts :call CocLocations('ccls','textDocument/typeDefinition', {}, 'split')<cr>
-nnoremap <silent> <leader>gtv :call CocLocations('ccls','textDocument/typeDefinition', {}, 'vsplit')<cr>
 nmap <silent> <leader>gi. <Plug>(coc-implementation)
-nnoremap <silent> <leader>gid :call CocLocations('ccls','textDocument/implementation', {}, 'drop')<cr>
-nnoremap <silent> <leader>gis :call CocLocations('ccls','textDocument/implementation', {}, 'split')<cr>
-nnoremap <silent> <leader>giv :call CocLocations('ccls','textDocument/implementation', {}, 'vsplit')<cr>
 nmap <silent> <leader>gr. <Plug>(coc-references)
-nnoremap <silent> <leader>grd :call CocLocations('ccls','textDocument/references', {}, 'drop')<cr>
-nnoremap <silent> <leader>grs :call CocLocations('ccls','textDocument/references', {}, 'split')<cr>
-nnoremap <silent> <leader>grv :call CocLocations('ccls','textDocument/references', {}, 'vsplit')<cr>
+
+" language server for c/c++ (options: ccls, clangd)
+let cpp_lsp = 'clangd'
+
+" clangd additional mappings
+nnoremap <silent> <leader>gdd :call CocLocations(cpp_lsp,'textDocument/definition', {}, 'drop')<cr>
+nnoremap <silent> <leader>gds :call CocLocations(cpp_lsp,'textDocument/definition', {}, 'split')<cr>
+nnoremap <silent> <leader>gdv :call CocLocations(cpp_lsp,'textDocument/definition', {}, 'vsplit')<cr>
+nnoremap <silent> <leader>gld :call CocLocations(cpp_lsp,'textDocument/declaration', {}, 'drop')<cr>
+nnoremap <silent> <leader>gls :call CocLocations(cpp_lsp,'textDocument/declaration', {}, 'split')<cr>
+nnoremap <silent> <leader>glv :call CocLocations(cpp_lsp,'textDocument/declaration', {}, 'vsplit')<cr>
+nnoremap <silent> <leader>gtd :call CocLocations(cpp_lsp,'textDocument/typeDefinition', {}, 'drop')<cr>
+nnoremap <silent> <leader>gts :call CocLocations(cpp_lsp,'textDocument/typeDefinition', {}, 'split')<cr>
+nnoremap <silent> <leader>gtv :call CocLocations(cpp_lsp,'textDocument/typeDefinition', {}, 'vsplit')<cr>
+nnoremap <silent> <leader>gid :call CocLocations(cpp_lsp,'textDocument/implementation', {}, 'drop')<cr>
+nnoremap <silent> <leader>gis :call CocLocations(cpp_lsp,'textDocument/implementation', {}, 'split')<cr>
+nnoremap <silent> <leader>giv :call CocLocations(cpp_lsp,'textDocument/implementation', {}, 'vsplit')<cr>
+nnoremap <silent> <leader>grd :call CocLocations(cpp_lsp,'textDocument/references', {}, 'drop')<cr>
+nnoremap <silent> <leader>grs :call CocLocations(cpp_lsp,'textDocument/references', {}, 'split')<cr>
+nnoremap <silent> <leader>grv :call CocLocations(cpp_lsp,'textDocument/references', {}, 'vsplit')<cr>
+
+" clangd exentions mappings
+nnoremap <silent> <leader>gs :CocCommand clangd.switchSourceHeader<CR>
+nnoremap <silent> <leader>gy :CocCommand clangd.symbolInfo<CR>
+
+" ccls cross references
+" bases
+nnoremap <silent> <leader>xb :call CocLocations('ccls','$ccls/inheritance')<cr>
+" bases of up to 3 levels
+nnoremap <silent> <leader>xB :call CocLocations('ccls','$ccls/inheritance',{'levels':3})<cr>
+" derived
+nnoremap <silent> <leader>xd :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true})<cr>
+" derived of up to 3 levels
+nnoremap <silent> <leader>xD :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true,'levels':3})<cr>
+
+" caller
+nnoremap <silent> <leader>xc :call CocLocations('ccls','$ccls/call')<cr>
+" callee
+nnoremap <silent> <leader>xC :call CocLocations('ccls','$ccls/call',{'callee':v:true})<cr>
+
+" $ccls/member
+" member variables / variables in a namespace
+nnoremap <silent> <leader>xm :call CocLocations('ccls','$ccls/member')<cr>
+" member functions / functions in a namespace
+nnoremap <silent> <leader>xf :call CocLocations('ccls','$ccls/member',{'kind':3})<cr>
+" nested classes / types in a namespace
+nnoremap <silent> <leader>xs :call CocLocations('ccls','$ccls/member',{'kind':2})<cr>
+
+nnoremap <silent> <leader>xv :call CocLocations('ccls','$ccls/vars')<cr>
+nnoremap <silent> <leader>xV :call CocLocations('ccls','$ccls/vars',{'kind':1})<cr>
+
+nnoremap <silent> <leader>xh :call CocLocations('ccls','$ccls/navigate',{'direction':'L'})<CR>
+nnoremap <silent> <leader>xl :call CocLocations('ccls','$ccls/navigate',{'direction':'R'})<CR>
+nnoremap <silent> <leader>xj :call CocLocations('ccls','$ccls/navigate',{'direction':'D'})<CR>
+nnoremap <silent> <leader>xk :call CocLocations('ccls','$ccls/navigate',{'direction':'U'})<CR>
 
 " remap for format selected region
 vmap <leader>gf  <Plug>(coc-format-selected)
@@ -505,7 +603,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-"autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 augroup mygroup
   autocmd!
@@ -520,30 +618,4 @@ command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
-
-" Cross references
-" bases
-nnoremap <silent> <leader>xb :call CocLocations('ccls','$ccls/inheritance')<cr>
-" bases of up to 3 levels
-nnoremap <silent> <leader>xb :call CocLocations('ccls','$ccls/inheritance',{'levels':3})<cr>
-" derived
-nnoremap <silent> <leader>xd :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true})<cr>
-" derived of up to 3 levels
-nnoremap <silent> <leader>xD :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true,'levels':3})<cr>
-
-" caller
-nnoremap <silent> <leader>xc :call CocLocations('ccls','$ccls/call')<cr>
-" callee
-nnoremap <silent> <leader>xC :call CocLocations('ccls','$ccls/call',{'callee':v:true})<cr>
-
-" $ccls/member
-" member variables / variables in a namespace
-nnoremap <silent> <leader>xm :call CocLocations('ccls','$ccls/member')<cr>
-" member functions / functions in a namespace
-nnoremap <silent> <leader>xf :call CocLocations('ccls','$ccls/member',{'kind':3})<cr>
-" nested classes / types in a namespace
-nnoremap <silent> <leader>xs :call CocLocations('ccls','$ccls/member',{'kind':2})<cr>
-
-nnoremap <silent> <leader>xv :call CocLocations('ccls','$ccls/vars')<cr>
-nnoremap <silent> <leader>xV :call CocLocations('ccls','$ccls/vars',{'kind':1})<cr>
 

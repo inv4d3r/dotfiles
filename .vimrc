@@ -196,6 +196,9 @@ call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-sleuth')
 call minpac#add('tpope/vim-vinegar')
 
+call minpac#add('m42e/arxml.vim')
+nnoremap <leader>x :call FollowShortName()<CR>
+
 " programming helpers
 call minpac#add('sirver/UltiSnips')
 call minpac#add('vivien/vim-linux-coding-style')

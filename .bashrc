@@ -22,7 +22,8 @@ export BASHRC=~/.bashrc
 export VIMRC=~/.vimrc
 export NVIMRC=~/.config/nvim/init.vim
 
-export BROWSER=qutebrowser
+export BROWSER=firefox
+export TERM_BROWSER=w3m
 export RTV_BROWSER=qutebrowser
 
 export FONT_FAMILY="Fira Code"

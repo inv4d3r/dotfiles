@@ -59,3 +59,5 @@ esac
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
   exec startx
 fi
+
+[ -f ~/.dir_colors ] && eval $(dircolors ~/.dir_colors)

@@ -27,6 +27,9 @@ pasystray &
 # automount
 udiskie --tray &
 
+# network tray
+nm-applet &
+
 # gnome keyring
 if [ -f /etc/X11/xinit/xinitrc.d/50-systemd-user.sh ]; then
 	source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh

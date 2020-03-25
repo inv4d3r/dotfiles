@@ -1,5 +1,7 @@
 auto-reload no
 browser qutebrowser
+
+# colors
 color background white black
 color info black white
 color listnormal blue black
@@ -7,22 +9,21 @@ color listnormal_unread blue black
 color listfocus white blue
 color listfocus_unread black blue
 
+# vim like keybindings
 unbind-key h
 unbind-key j
 unbind-key k
 unbind-key l
+unbind-key g
+unbind-key G
+unbind-key ^F
+unbind-key ^B
 
 bind-key h quit
 bind-key j down
 bind-key k up
 bind-key l open
-
-unbind-key g # bound to `sort` by default
 bind-key g home
-unbind-key G # bound to `rev-sort` by default
 bind-key G end
-
-unbind-key ^F # bound to 'clear-filter' by default
 bind-key ^F pagedown
-unbind-key ^B # bound to 'bookmark' by default
 bind-key ^B pageup

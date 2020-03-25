@@ -17,6 +17,8 @@ alias zathura='tabbed -c zathura -e'
 export HISTSIZE=""
 export HISTCONTROL=ignoreboth:erasedups
 
+export PATH=$PATH:~/.local/bin
+
 export AWESOMERC=~/.config/awesome/rc.lua
 export BASHRC=~/.bashrc
 export VIMRC=~/.vimrc

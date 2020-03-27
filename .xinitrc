@@ -8,20 +8,11 @@ else
 	xrdb -DTHEME_XRESOURCES="<$HOME/.config/xresources/$THEME>" -merge ~/.Xresources
 fi
 
-# terminal emulators theme
-envsubst < ~/.config/kitty/kitty.baseconf > ~/.config/kitty/kitty.conf
-envsubst < ~/.config/termite/base > ~/.config/termite/config
-envsubst < ~/.config/termite/$THEME >> ~/.config/termite/config
-
 # keyboard
-setxkbmap pl &
-setxkbmap -option caps:escape &
-
-# appearance
-#compton &
+setxkbmap pl -option caps:escape &
 
 # sound
-pulseaudio -D
+#pulseaudio -D
 pasystray &
 
 # automount
@@ -37,6 +28,11 @@ fi
 #dbus-update-activation-environment --systemd DISPLAY
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
+
+# terminal emulators theme
+envsubst < ~/.config/kitty/kitty.baseconf > ~/.config/kitty/kitty.conf
+envsubst < ~/.config/termite/base > ~/.config/termite/config
+envsubst < ~/.config/termite/$THEME >> ~/.config/termite/config
 
 # start window manager
 exec awesome

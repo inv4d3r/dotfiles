@@ -49,6 +49,9 @@ set sidebar_indent_string="  "
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 set mail_check_stats
 
+# Toggle sidebar
+bind index,pager \Ch sidebar-toggle-visible
+
 # Move the highlight to the previous mailbox
 bind index,pager \Cp sidebar-prev
 
@@ -84,42 +87,24 @@ macro attach s "<save-entry><bol>~/downloads/<eol>"
 macro index,pager \eo "<enter-command>unset wait_key<enter><shell-escape>~/repos/scripts/run_tmux.sh offlineimap -o<enter>" "run offlineimap"
 macro index,pager \eq "<enter-command>unset wait_key<enter><shell-escape>~/repos/scripts/run_tmux.sh offlineimap -qo<enter>" "run offlineimap quick"
 
-# personality settings
-set realname = "Mariusz Zalewski"
-#set from = ""
-set use_from = yes
+# decode iso-8859-2 attachment names
+set rfc2047_parameters = yes
 
 # aliases (sort of address book)
 set alias_file=~/.mutt/aliases
 source ~/.mutt/aliases
 
-# IMAP configuration
-
-# offlineimap
+# account settings
 set folder = "~/mail"
-source ~/.mutt/mailboxes
-set spoolfile = "+INBOX"
-set record = "+Sent\ Items"
-set postponed = "+Drafts"
+unset confirmappend
 
 # msmtp
-set sendmail="msmtp"
+set ssl_force_tls = yes
 
 # notmuch
 macro index <F8> \
-	      "<enter-command>unset wait_key<enter><shell-escape>/usr/bin/notmuch-mutt --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" \
-	      "search mail (using notmuch)"
+"<enter-command>unset wait_key<enter><shell-escape>/usr/bin/notmuch-mutt --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" \
+"search mail (using notmuch)"
 macro index <F9> \
-		      "<enter-command>unset wait_key<enter><pipe-message>/usr/bin/notmuch-mutt thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" \
-		      "search and reconstruct owning thread (using notmuch)"
-
-set ssl_force_tls = yes
-
-source ~/.gnupg/gpg.rc
-
-set pgp_use_gpg_agent = yes
-set pgp_sign_as = 4985CE1A134D0BAD
-set pgp_timeout = 3600
-set crypt_autosign = yes
-set crypt_replyencrypt = yes
-
+"<enter-command>unset wait_key<enter><pipe-message>/usr/bin/notmuch-mutt thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" \
+"search and reconstruct owning thread (using notmuch)"

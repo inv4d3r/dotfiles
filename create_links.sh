@@ -15,7 +15,6 @@ ln -fs "$PWD/".urlview ~/.urlview
 ln -fs "$PWD/".mutt ~/.mutt
 ln -fs "$PWD/".muttrc ~/.muttrc
 ln -fs "$PWD/".mailcap ~/.mailcap
-#ln -fs "$PWD/".pentadactylrc ~/.pentadactylrc
 ln -fs "$PWD/".profile ~/.profile
 ln -fs "$PWD/".rtorrent.rc ~/.rtorrent.rc
 ln -fs "$PWD/".tmux.conf ~/.tmux.conf

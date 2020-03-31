@@ -24,6 +24,7 @@ export BASHRC=~/.bashrc
 export VIMRC=~/.vimrc
 export NVIMRC=~/.config/nvim/init.vim
 
+export EDITOR=vim
 export BROWSER=firefox
 export TERM_BROWSER=w3m
 export RTV_BROWSER=qutebrowser

@@ -1,0 +1,5 @@
+tags
+.ccls-cache
+.clangd
+cscope.out
+cscope.files

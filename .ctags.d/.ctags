@@ -1,0 +1,2 @@
+--exclude=.ccls-cache
+--exclude=.clangd

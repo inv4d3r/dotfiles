@@ -3,6 +3,7 @@
 ln -fs "$PWD/".bash_profile ~/.bash_profile
 ln -fs "$PWD/".bashrc ~/.bashrc
 #ln -fs "$PWD/".compton.conf ~/.compton.conf
+ln -fs "$PWD/".ctags.d ~/.ctags.d
 ln -fs "$PWD/".fzf.bash ~/.fzf.bash
 ln -fs "$PWD/".fzf.zsh ~/.fzf.zsh
 ln -fs "$PWD/".gdbinit ~/.gdbinit

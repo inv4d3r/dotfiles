@@ -84,8 +84,8 @@ macro index,pager u "<set-flag>N" "Mark as unread"
 
 macro index,pager \Cb | urlview\n
 macro attach s "<save-entry><bol>~/downloads/<eol>"
-macro index,pager \eo "<enter-command>unset wait_key<enter><shell-escape>~/repos/scripts/run_tmux.sh offlineimap -o<enter>" "run offlineimap"
-macro index,pager \eq "<enter-command>unset wait_key<enter><shell-escape>~/repos/scripts/run_tmux.sh offlineimap -qo<enter>" "run offlineimap quick"
+macro index,pager \eo "<enter-command>unset wait_key<enter><shell-escape>~/scripts/run_tmux.sh offlineimap -o<enter>" "run offlineimap"
+macro index,pager \eq "<enter-command>unset wait_key<enter><shell-escape>~/scripts/run_tmux.sh offlineimap -qo<enter>" "run offlineimap quick"
 
 # decode iso-8859-2 attachment names
 set rfc2047_parameters = yes

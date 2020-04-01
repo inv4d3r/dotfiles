@@ -90,10 +90,6 @@ macro index,pager \eq "<enter-command>unset wait_key<enter><shell-escape>~/repos
 # decode iso-8859-2 attachment names
 set rfc2047_parameters = yes
 
-# aliases (sort of address book)
-set alias_file=~/.mutt/aliases
-source ~/.mutt/aliases
-
 # account settings
 set folder = "~/mail"
 unset confirmappend

@@ -82,7 +82,10 @@ macro index,pager u "<set-flag>N" "Mark as unread"
 
 #bind attach <return> view-mailcap
 
-macro index,pager \Cb | urlview\n
+# urlscan
+macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+
 macro attach s "<save-entry><bol>~/downloads/<eol>"
 macro index,pager \eo "<enter-command>unset wait_key<enter><shell-escape>~/scripts/run_tmux.sh offlineimap -o<enter>" "run offlineimap"
 macro index,pager \eq "<enter-command>unset wait_key<enter><shell-escape>~/scripts/run_tmux.sh offlineimap -qo<enter>" "run offlineimap quick"

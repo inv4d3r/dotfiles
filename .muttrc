@@ -61,20 +61,25 @@ bind index,pager \Cn sidebar-next
 # Open the highlighted mailbox
 bind index,pager \Co sidebar-open
 
-# more vim-like bindings
+# vim-like bindings
+bind alias,index,browser,query gg first-entry
+bind pager gg top
 bind alias,index,browser,query G last-entry
 bind pager G bottom
-
-bind alias,index,browser,query gg first-entry
-# conflicts with group reply
-#bind pager gg top
-
-bind alias,index,pager,browser,query \Cd half-down
-bind alias,index,pager,browser,query \Cu half-up
-
 bind index n search-next
 bind index N search-opposite
+bind attach,browser,pager,index \CF next-page
+bind attach,browser,pager,index \CB previous-page
+bind attach,browser,pager,index \Cu half-up
+bind attach,browser,pager,index \Cd half-down
+bind browser,pager              \Ce next-line
+bind browser,pager              \Cy previous-line
+bind index                      \Ce next-line
+bind index                      \Cy previous-line
+bind pager,index                dd  delete-message
+bind pager,index                gr  group-reply
 
+# mark all as read
 macro index A \
     "<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" \
     "mark all new as read"
@@ -83,8 +88,8 @@ macro index,pager u "<set-flag>N" "Mark as unread"
 #bind attach <return> view-mailcap
 
 # urlscan
-macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
-macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro index,pager \eb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \eb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 
 macro attach s "<save-entry><bol>~/downloads/<eol>"
 macro index,pager \eo "<enter-command>unset wait_key<enter><shell-escape>~/scripts/run_tmux.sh offlineimap -o<enter>" "run offlineimap"

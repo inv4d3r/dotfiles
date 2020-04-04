@@ -13,6 +13,7 @@
 	chq = cherry-pick --quit
 	cha = cherry-pick --abort
 	chc = cherry-pick --continue
+	chs = cherry-pick --skip
 	c = commit
 	cm = commit -m
 	ca = commit -a

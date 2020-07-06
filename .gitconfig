@@ -59,6 +59,10 @@
 	wta = worktree add
 	wtl = worktree list
 	wtp = worktree prune
+	rmo = !find . -regextype grep -regex ".*\\.orig" -delete
+
+[mergetool]
+	keepBackup = false
 
 [mergetool "fugitive"]
 	cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
@@ -71,6 +75,6 @@
 
 [diff]
 	wsErrorHighlight = all
-[user]
-	name = Mariusz Zalewski
-	email = mariusz.zalewski@partner.bmw.de
+
+[pull]
+	ff = only

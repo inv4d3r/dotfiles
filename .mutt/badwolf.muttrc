@@ -1,17 +1,18 @@
 # badwolf color theme for mutt
 
 # color15  - white
-# color233 - black
-# color235 - black
-# color243 - gray light
-# color239 - gray dark
-# color196 - red taffy
 # color39 -  blue tardis
-# color211 - pink
-# color214 - green lime
 # color137 - brown
+# color196 - red taffy
+# color211 - pink
+# color214 - orange
+# color154 - green lime
 # color221 - yellow
 # color222 - yellow
+# color233 - black
+# color235 - black
+# color239 - gray dark
+# color243 - gray light
 
 color   index       color243        color233 ~P
 
@@ -34,16 +35,16 @@ color   quoted3     color214        color233
 color   quoted4     color154        color233
 
 color   tilde       color39         color233
-color   tree        color211        color233
+color   tree        color221        color233
 color   attachment  brightcolor211  color233
 
 color   index       color154        color233 ~N
 
 # Colorize sidebar
-color   sidebar_new       color154       color233
-color   sidebar_indicator color39        color235
-color   sidebar_highlight color39        color233
-color   sidebar_divider   color39        color233
+color   sidebar_new       color154      color233
+color   sidebar_indicator color39       color235
+color   sidebar_highlight color39       color233
+color   sidebar_divider   color39       color233
 
 color   index       brightcolor221  color233 ~F
 color   index       brightcolor39   color233 ~T

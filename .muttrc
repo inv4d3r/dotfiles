@@ -62,22 +62,22 @@ bind index,pager \Cn sidebar-next
 bind index,pager \Co sidebar-open
 
 # vim-like bindings
-bind alias,index,browser,query gg first-entry
+bind alias,index,browser,query,attach gg first-entry
 bind pager gg top
-bind alias,index,browser,query G last-entry
+bind alias,index,browser,query,attach G last-entry
 bind pager G bottom
 bind index n search-next
 bind index N search-opposite
-bind attach,browser,pager,index \CF next-page
-bind attach,browser,pager,index \CB previous-page
-bind attach,browser,pager,index \Cu half-up
-bind attach,browser,pager,index \Cd half-down
+bind attach,browser,pager,index,attach \CF next-page
+bind attach,browser,pager,index,attach \CB previous-page
+bind attach,browser,pager,index,attach \Cu half-up
+bind attach,browser,pager,index,attach \Cd half-down
 bind browser,pager              \Ce next-line
 bind browser,pager              \Cy previous-line
 bind index                      \Ce next-line
 bind index                      \Cy previous-line
 bind pager,index                dd  delete-message
-bind pager,index                gr  group-reply
+bind pager,index,attach         gr  group-reply
 
 # mark all as read
 macro index A \

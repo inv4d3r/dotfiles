@@ -61,31 +61,37 @@ bind index,pager \Cn sidebar-next
 # Open the highlighted mailbox
 bind index,pager \Co sidebar-open
 
+# Move the highlight to the prev mailbox with new mail
+bind index,pager \ep sidebar-prev-new
+
+# Move the highlight to the next mailbox with new mail
+bind index,pager \en sidebar-next-new
+
 # vim-like bindings
-bind alias,index,browser,query,attach gg first-entry
+bind index,attach,pager g noop
+bind attach,pager d noop
 bind pager gg top
 bind alias,index,browser,query,attach G last-entry
 bind pager G bottom
 bind index n search-next
 bind index N search-opposite
-bind attach,browser,pager,index,attach \CF next-page
-bind attach,browser,pager,index,attach \CB previous-page
-bind attach,browser,pager,index,attach \Cu half-up
-bind attach,browser,pager,index,attach \Cd half-down
-bind browser,pager              \Ce next-line
-bind browser,pager              \Cy previous-line
-bind index                      \Ce next-line
-bind index                      \Cy previous-line
-bind pager,index                dd  delete-message
-bind pager,index,attach         gr  group-reply
+bind alias,attach,browser,index,query gg first-entry
+bind alias,attach,browser,index,query G last-entry
+bind alias,attach,browser,index,query,pager \CF next-page
+bind alias,attach,browser,index,query,pager \CB previous-page
+bind alias,attach,browser,index,query,pager \Cu half-up
+bind alias,attach,browser,index,query,pager \Cd half-down
+bind alias,attach,browser,index,query,pager \Ce next-line
+bind alias,attach,browser,index,query,pager \Cy previous-line
+bind index,pager                dd  delete-message
+bind attach                     dd  delete-entry
+bind attach,index,pager         gr  group-reply
 
 # mark all as read
 macro index A \
     "<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" \
     "mark all new as read"
 macro index,pager u "<set-flag>N" "Mark as unread"
-
-#bind attach <return> view-mailcap
 
 # urlscan
 macro index,pager \eb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"

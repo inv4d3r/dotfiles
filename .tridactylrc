@@ -1,5 +1,5 @@
 # unbind everything first
-unbind --mode=normal go
+unset nmaps
 
 # show indicator for partial commands
 set modeindicatorshowkeys true
@@ -36,6 +36,7 @@ bind <c-R> fillcmdline_notrail tabopen https://old.reddit.com/r/
 quickmark a allegro.pl
 quickmark b airdates.tv
 quickmark c ceneo.pl
+quickmark C coursera.org
 quickmark d cinkciarz.pl/wymiana-walut/kursy-walut-cinkciarz-pl
 quickmark e coursera.org
 quickmark f facebook.com
@@ -59,3 +60,8 @@ quickmark w wiki.archlinux.org
 quickmark x aliexpress.com
 quickmark y youtube.com
 quickmark z mega.nz
+
+# search urls
+set searchurls.cpp http://en.cppreference.com/mwiki/index.php?search=
+set searchurls.arch  https://wiki.archlinux.org/?search=
+set searchurls.aur https://aur.archlinux.org/packages/?O=0&K=

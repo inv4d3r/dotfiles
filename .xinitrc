@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# monitor(s) setup
+~/scripts/setup-screen.sh
+
 # Xresources theme
 if [ -z "$THEME" ]
 then
@@ -9,17 +12,17 @@ else
 fi
 
 # keyboard
-setxkbmap pl -option caps:escape &
+#setxkbmap -layout pl,ua,us -variant ,,altgr-intl -option caps:escape grp:rctrl_toggle
 
 # sound
 #pulseaudio -D
-pasystray &
+#pasystray &
 
 # automount
-udiskie --tray &
+#udiskie --tray &
 
 # network tray
-nm-applet &
+#nm-applet &
 
 # gnome keyring
 if [ -f /etc/X11/xinit/xinitrc.d/50-systemd-user.sh ]; then
@@ -34,5 +37,9 @@ envsubst < ~/.config/kitty/kitty.baseconf > ~/.config/kitty/kitty.conf
 envsubst < ~/.config/termite/base > ~/.config/termite/config
 envsubst < ~/.config/termite/$THEME >> ~/.config/termite/config
 
+# i3 theme
+cat ~/.config/i3/themes/$THEME/config ~/.config/i3/config.base > ~/.config/i3/config
+
 # start window manager
-exec awesome
+#exec awesome
+exec i3

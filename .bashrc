@@ -10,6 +10,8 @@ parse_git_branch() {
 }
 
 # aliases
+alias cat='bat'
+alias mutt='neomutt'
 alias ls='ls --color=auto'
 alias zathura='tabbed -c zathura -e'
 
@@ -17,13 +19,15 @@ alias zathura='tabbed -c zathura -e'
 export HISTSIZE=""
 export HISTCONTROL=ignoreboth:erasedups
 
-export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/.local/bin:/usr/lib/w3m:/opt/piavpn/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin
 
+export I3CONFIG=~/.config/i3/config
 export AWESOMERC=~/.config/awesome/rc.lua
 export BASHRC=~/.bashrc
 export VIMRC=~/.vimrc
 export NVIMRC=~/.config/nvim/init.vim
 
+export TERMINAL=kitty
 export EDITOR=vim
 export BROWSER=firefox
 export TERM_BROWSER=w3m
@@ -60,8 +64,25 @@ esac
 [ -f /etc/profile.d/jre.sh ] && source /etc/profile.d/jre.sh
 [ -d /usr/lib/jvm/default/ ] && export JAVA_HOME=/usr/lib/jvm/default/
 
+# GPG SSH key
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
   exec startx
 fi
 
 [ -f ~/.dir_colors ] && eval $(dircolors ~/.dir_colors)
+
+# perl
+if command -v perl &> /dev/null
+then
+   PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+   PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+   PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+   PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+   PATH="$PATH:$HOME/perl5/bin"; export PATH;
+fi
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION

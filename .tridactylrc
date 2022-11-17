@@ -19,6 +19,8 @@ bind gO current_url tabopen
 #bind M current_url bmark
 bind J tabnext
 bind K tabprev
+# duplicate tab
+bind Y tabduplicate
 # rapid hint
 bind ;r hint -qb
 
@@ -65,3 +67,4 @@ quickmark z mega.nz
 set searchurls.cpp http://en.cppreference.com/mwiki/index.php?search=
 set searchurls.arch  https://wiki.archlinux.org/?search=
 set searchurls.aur https://aur.archlinux.org/packages/?O=0&K=
+set searchurls.conan https://conan.io/center/

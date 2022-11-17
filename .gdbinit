@@ -8,4 +8,6 @@ set print symbol-filename on
 set print array on
 set print array-indexes on
 
-skip -gfi /usr/include/c++/8/bits/*.h
+set debuginfod enabled on
+
+skip -gfi /usr/include/c++/**/bits/*.h
